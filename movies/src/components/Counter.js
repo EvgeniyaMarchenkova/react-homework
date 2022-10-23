@@ -1,7 +1,5 @@
 import React from 'react';
-
-// const increaseBtn = React.createElement('button', {}, 'INCREASE');
-// const decreaseBtn = React.createElement('button', {}, 'DECREASE');
+import ReactDOM from 'react-dom/client';
 
 class Counter extends React.Component {
     constructor(props) {
@@ -11,30 +9,49 @@ class Counter extends React.Component {
         this.decrease = this.decrease.bind(this);
       }
 
+    componentDidMount() {
+      const root = ReactDOM.createRoot(
+        document.getElementById('counter-block')
+      );
+      const increaseBtn = React.createElement('button', { onClick: this.increase }, 'INCREASE');
+      const decreaseBtn = <button onClick={this.decrease}>Decrease</button>;
+      root.render(
+        <div>      
+          {increaseBtn}
+          {decreaseBtn}
+        </div>
+        
+      );
+    }
+
     increase() {
-        const newValue = this.state.value + 1;
-        this.setState({value: newValue});
+      console.log(1, this.state.value);
+      const newValue = this.state.value + 1;
+      this.setState({value: newValue});
     }
 
     decrease() {
-        if (this.state.value === 0) {
-            return;
-        }
-        const newValue = this.state.value - 1;
-        this.setState({value: newValue});
+      console.log(2);
+      if (this.state.value === 0) {
+          return;
+      }
+      const newValue = this.state.value - 1;
+      this.setState({value: newValue});
     }
 
     render() {
         return (
           <div>
             <h1>Counter value: {this.state.value}</h1>
-            <button onClick={this.increase}>Increase</button>
-            <button onClick={this.decrease}>Decrease</button>
+            <div id='counter-block'></div> 
           </div>
+          
         );
       }
 
   }
+
+
 
 export default Counter;
   

@@ -1,24 +1,16 @@
-import React from 'react';
+import React,  { useState } from 'react';
 
 let Search = () => {
-  let searchText = '';
-  const reset = () => {
-    searchText = '';
-  }
-
-  const updateSearchText = (value) => {
-    searchText = value;
-  }
+  const [ searchText, setSearchText ] = useState('');
 
   return <div>
     <input
-      defaultValue={searchText}
-      onChange={() => updateSearchText}
+      value={searchText}
+      onChange={(ev) => setSearchText(ev.target.value)}
       type="text"
       label="What do yoy want to watch?"></input>
-    <button onClick={() => reset}>Search</button>
-  </div>
-  
+    <button onClick={() => setSearchText('')}>Reset Search</button>
+  </div>  
 }
 
 export default Search;
