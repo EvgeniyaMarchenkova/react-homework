@@ -1,14 +1,11 @@
 import React from 'react';
-import './App.css';
-import Counter from './components/Counter';
-import Search from './components/Search';
 
 const GENRES = ['ALL', 'DOCUMENTARY', 'COMEDY', 'HORROR', 'CRIME'];
 
 class NavBar extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = { selectedGenre: 'ALL' };
+    this.state = { selectedGenre: '' };
     this.updateSelectedGenre = this.updateSelectedGenre.bind(this);
 
     this.listItems = GENRES.map((genre) =>
@@ -43,14 +40,4 @@ class NavBar extends React.PureComponent {
   }
 }
 
-function App() {
-  return (
-    <div className="App">
-      <NavBar></NavBar>
-      <Search/>
-      <Counter/>
-    </div>
-  );
-}
-
-export default App;
+export default NavBar;

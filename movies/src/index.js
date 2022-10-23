@@ -12,7 +12,7 @@ const listItems = numbers.map((numbers) =>
 
 root.render(
   <React.StrictMode>
-    <ul>{listItems}</ul>
+    {/* <ul>{listItems}</ul> */}
     <App />
   </React.StrictMode>
 );
