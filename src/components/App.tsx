@@ -1,9 +1,19 @@
-import React from 'react';
+import React,  { useState }  from 'react';
+import Header from './Header';
+import MainContent from './MainContent';
+import Footer from './Footer';
+import ErrorBoundary from './ErrorBoundary';
 
-class App extends React.Component {
-  render() {
-    return <div>My component</div>;
-  }
-}
+let App = () => {
+  const [ searchText, setSearchText ] = useState('');
+
+  return <>
+    <Header searchText={ searchText } onChangedSearchText={ setSearchText }/>
+    <ErrorBoundary>
+      <MainContent searchText={ searchText }/>
+      </ErrorBoundary>
+    <Footer/>
+    </>;  
+};
 
 export default App;

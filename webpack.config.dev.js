@@ -12,24 +12,16 @@ module.exports = {
         extensions: ['.js', '.jsx', '.tsx', '.ts'],
     },
     module: {
-        rules: [ {
-            test: /\.js*/,
-            exclude: /node_modules/,
-            use: {
-                loader: 'babel-loader'
-            },
-        },
-        {
-            test: /\.tsx?$/,
+        rules: [{
+            test: /\.j?t?sx?$/,
             exclude: /node_modules/,
             loader: 'ts-loader'
-         }
-            
-        ]
+        }]
     },
+    devtool: 'inline-source-map',
     plugins: [
         new HtmlWebpackPlugin({
-            template: '/src/index.html'
+            template: './src/index.html'
         })
     ]
 }
