@@ -4,7 +4,7 @@ import MainContent from './MainContent';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
 
-let App = () => {
+const App = () => {
   const [ searchText, setSearchText ] = useState('');
 
   return <>

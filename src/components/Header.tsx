@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
 
 interface HeaderData {
   searchText: string;
-  onChangedSearchText: Function;
+  onChangedSearchText: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Input = styled.input`
@@ -21,13 +21,13 @@ const HeaderContainer = styled.div`
   background-size: 0.375em 0.375em, 0.375em 0.375em, 100% 100%;
 `;
 
-let Header = (props: HeaderData) => {
+const Header = (props: HeaderData) => {
   return <HeaderContainer>
     <Input
       value={props.searchText}
-      onChange={(ev: any) => props.onChangedSearchText(ev.target.value)}
+      onChange={(ev: ChangeEvent<HTMLInputElement>) => props.onChangedSearchText(ev.target.value)}
       type="text"
-      placeholder='Select'></Input>
+      placeholder='Select'/>
     <button onClick={() => props.onChangedSearchText('')}>Reset Search</button>
   </HeaderContainer>;
 };

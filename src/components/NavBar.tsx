@@ -21,9 +21,14 @@ const MenuItem = styled.span<MenuItemProps>`
   align-items: center;
 `;
 
-const GENRES = [ Genre.All, Genre.Documentary, Genre.Comedy, Genre.Crime, Genre.Horror ];
+interface NavBarProps {
+  selectedGenre: string;
+  onChangeSelectedGenre: React.Dispatch<React.SetStateAction<Genre>>;
+}
 
-let NavBar = (props: any) => {
+const GENRES = [ Genre.All, Genre.Documentary, Genre.Comedy, Genre.Crime, Genre.Horror ] as const;
+
+const NavBar = (props: NavBarProps) => {
   return <Wrapper>
     {...GENRES.map((genre) =>
       <MenuItem

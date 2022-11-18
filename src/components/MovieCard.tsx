@@ -2,12 +2,7 @@ import styled from 'styled-components';
 import React from 'react';
 import { MovieData } from '../model/movie-data';
 
-interface DataStyles {
-  disabled: boolean;
-}
-
-const MovieWrapper = styled.section<DataStyles>`
-  display: ${ props => props.disabled ? 'none' : 'block' };
+const MovieWrapper = styled.section`
   background: gray;
   flex: 1 1 25%;
   min-width: 261px;
@@ -16,7 +11,7 @@ const MovieWrapper = styled.section<DataStyles>`
 `;
 
 const MovieCard = (props: MovieData) => {
-  return <MovieWrapper disabled={props.disabled}>{props.value}</MovieWrapper>;
+  return <MovieWrapper>{props.value}</MovieWrapper>;
 };
 
 export default MovieCard;

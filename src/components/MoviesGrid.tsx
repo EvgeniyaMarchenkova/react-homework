@@ -21,7 +21,8 @@ export const movies = [{
 }, {
   value: 'CRIME 2',
   genre: Genre.Crime,
-}];
+}] as const;
+
 
 const Container = styled.div`
   background: gray;
@@ -29,22 +30,23 @@ const Container = styled.div`
   grid-template-columns: repeat(3, 1fr);
 `;
 
-let MoviesGrid = (props: Filter) => {
-  const isMovieHidden = (movie: MovieData) => {
+const MoviesGrid = (props: Filter) => {
+  const isMovieVisible = (movie: MovieData) => {
     const isMatchesSelectedGenre = props.genre === Genre.All || props.genre === movie.genre;
     const isMatchesSearch = movie.value.includes(props.searchText.toUpperCase());
-    return !isMatchesSelectedGenre || !isMatchesSearch;
+    return isMatchesSelectedGenre && isMatchesSearch;
   };
 
   return <Container>
-    {...movies.map((movie: MovieData)=> {
-      return <MovieCard 
-        key= { movie.value }
-        disabled={ isMovieHidden(movie) }
-        value={ movie.value }
-        genre={ movie.genre }
-      ></MovieCard>;
-    })}
+    {movies
+      .filter((movie: MovieData) => isMovieVisible(movie))
+      .map((movie: MovieData)=> {    
+        return <MovieCard 
+          key= { movie.value }
+          value={ movie.value }
+          genre={ movie.genre }
+        ></MovieCard>;
+      })}
   </Container>;
 };
 
