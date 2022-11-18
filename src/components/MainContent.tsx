@@ -4,7 +4,7 @@ import MoviesGrid from './MoviesGrid';
 import { Filter, Genre } from './../model';
 
 const MainContent = (props: Filter) => {
-        const [ selectedGenre, setSelectedGenre ] = useState(Genre.All);
+  const [ selectedGenre, setSelectedGenre ] = useState(Genre.All);
 
   return <div>
     <NavBar selectedGenre={selectedGenre} onChangeSelectedGenre={setSelectedGenre}/>
