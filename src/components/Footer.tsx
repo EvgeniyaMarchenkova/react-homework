@@ -7,7 +7,22 @@ const FooterWrapper = styled.div`
   width: 100%;
   line-height: 40px;
   text-align: center;
-  background: linear-gradient(45deg, #292929 25%, transparent 25%, transparent 75%, #292929 75%), linear-gradient(45deg, #292929 25%, transparent 25%, transparent 75%, #292929 75%) 0.1875em 0.1875em, radial-gradient(at 50% 0, #484847, #090909);
+  background: linear-gradient(
+      45deg,
+      #292929 25%,
+      transparent 25%,
+      transparent 75%,
+      #292929 75%
+    ),
+    linear-gradient(
+        45deg,
+        #292929 25%,
+        transparent 25%,
+        transparent 75%,
+        #292929 75%
+      )
+      0.1875em 0.1875em,
+    radial-gradient(at 50% 0, #484847, #090909);
   background-size: 0.375em 0.375em, 0.375em 0.375em, 100% 100%;
   position: fixed;
   bottom: 0;

@@ -1,17 +1,28 @@
 import styled from 'styled-components';
 import React from 'react';
-import { MovieData } from '../model/movie-data';
+import { MovieData } from '../model';
+import HamburgerMenu from './HamburgerMenu';
+
+export interface MovieCardProps extends MovieData {
+  openModalWindow: Function;
+  selectMovie: any;
+}
 
 const MovieWrapper = styled.section`
   background: gray;
   flex: 1 1 25%;
   min-width: 261px;
-  padding: 0 10px 20px 10px;
+  padding: 10px;
   border: 1px solid darkgrey;
+  position: relative;
 `;
 
-const MovieCard = (props: MovieData) => {
-  return <MovieWrapper>{props.value}</MovieWrapper>;
+const MovieCard = (props: MovieCardProps) => {
+  return (
+    <MovieWrapper onClick={() => props.selectMovie(props.value)}>
+      {props.value} <HamburgerMenu openModalWindow={props.openModalWindow} />
+    </MovieWrapper>
+  );
 };
 
 export default MovieCard;

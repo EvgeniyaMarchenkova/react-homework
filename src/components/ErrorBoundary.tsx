@@ -8,7 +8,10 @@ interface PropsErrorBoundary {
   children: ReactNode;
 }
 
-class ErrorBoundary extends React.Component<PropsErrorBoundary, StateErrorBoundary> {
+class ErrorBoundary extends React.Component<
+  PropsErrorBoundary,
+  StateErrorBoundary
+> {
   constructor(props: PropsErrorBoundary) {
     super(props);
     this.state = { hasError: false };
@@ -27,7 +30,7 @@ class ErrorBoundary extends React.Component<PropsErrorBoundary, StateErrorBounda
       return <h1>The error occurs. Try again later.</h1>;
     }
 
-    return this.props.children; 
+    return this.props.children;
   }
 }
 
