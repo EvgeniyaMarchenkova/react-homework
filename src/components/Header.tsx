@@ -4,7 +4,7 @@ import styled from 'styled-components';
 interface HeaderData {
   searchText: string;
   onChangedSearchText: React.Dispatch<React.SetStateAction<string>>;
-  openAddMovieWindow: Function;
+  openAddMovieWindow: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Input = styled.input`
@@ -60,7 +60,7 @@ const HeaderContainer = styled.div`
 const Header = (props: HeaderData) => {
   return (
     <HeaderContainer>
-      <AddMovieButton onClick={() => props.openAddMovieWindow()}>
+      <AddMovieButton onClick={() => props.openAddMovieWindow('')}>
         + ADD MOVIE
       </AddMovieButton>
       <Input

@@ -35,9 +35,9 @@ const INITIAL_MOVIE_LIST = [
 ];
 
 export interface Handlers {
-  addMovie: any;
-  deleteMovie: any;
-  updateMovie: any;
+  addMovie: Function;
+  deleteMovie: Function;
+  updateMovie: Function;
 }
 
 const App = () => {

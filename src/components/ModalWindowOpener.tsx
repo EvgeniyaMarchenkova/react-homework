@@ -8,9 +8,9 @@ interface ModalWindowOpenerProps {
   type: ModalWindowType;
   onCloseWindow: any;
   movieHandlers: {
-    delete: any;
-    edit: any;
-    add: any;
+    delete: Function;
+    edit: Function;
+    add: Function;
   };
 }
 

@@ -1,9 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
+interface DeleteMovieProps {
+  onDeleteMovie: any;
+}
+
 const DeleteMovieWrapper = styled.div``;
 
-const DeleteMovie = (props: any) => {
+const DeleteMovie = (props: DeleteMovieProps) => {
   return (
     <DeleteMovieWrapper>
       <h3>DELETE MOVIE</h3>

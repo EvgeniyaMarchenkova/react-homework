@@ -5,7 +5,7 @@ import HamburgerMenu from './HamburgerMenu';
 
 export interface MovieCardProps extends MovieData {
   openModalWindow: Function;
-  selectMovie: any;
+  selectMovie: Function;
 }
 
 const MovieWrapper = styled.section`
