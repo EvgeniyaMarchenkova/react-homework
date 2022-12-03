@@ -60,7 +60,7 @@ const HeaderContainer = styled.div`
 const Header = (props: HeaderData) => {
   return (
     <HeaderContainer>
-      <AddMovieButton onClick={() => props.openAddMovieWindow('')}>
+      <AddMovieButton onClick={() => props.openAddMovieWindow(undefined)}>
         + ADD MOVIE
       </AddMovieButton>
       <Input

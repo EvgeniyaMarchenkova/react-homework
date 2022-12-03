@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { ModalWindowType } from './../model';
 
 interface HamburgerMenuProps {
-  openModalWindow: Function;
+  openModalWindow: (modalWindowType: ModalWindowType) => void;
 }
 
 const HamburgerMenuWrapper = styled.div`

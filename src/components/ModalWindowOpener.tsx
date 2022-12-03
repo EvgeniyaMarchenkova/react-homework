@@ -50,18 +50,21 @@ const ModalWindowOpener = (props: ModalWindowOpenerProps) => {
     props.onCloseWindow();
   };
 
+  const getModalWindow = () => {
+    switch (props.type) {
+      case (ModalWindowType.AddMovie):
+        return <AddUpdateMovie onAddMovie={onAddMovie} />;
+      case (ModalWindowType.EditMovie):
+        return <AddUpdateMovie onUpdateMovie={onUpdateMovie} />;
+      case (ModalWindowType.DeleteMovie):
+        return <DeleteMovie onDeleteMovie={onDeleteMovie} />;
+    }
+  };  
+
   return (
     <ModalWrapper>
       <ModalContent>
-        {(props.type === ModalWindowType.AddMovie && (
-          <AddUpdateMovie onAddMovie={onAddMovie} />
-        )) ||
-          (props.type === ModalWindowType.EditMovie && (
-            <AddUpdateMovie onUpdateMovie={onUpdateMovie} />
-          )) ||
-          (props.type === ModalWindowType.DeleteMovie && (
-            <DeleteMovie onDeleteMovie={onDeleteMovie} />
-          ))}
+        {getModalWindow()}
         <button onClick={props.onCloseWindow}>Close window</button>
       </ModalContent>
     </ModalWrapper>

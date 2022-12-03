@@ -3,7 +3,7 @@ import Header from './Header';
 import MainContent from './MainContent';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
-import { ModalWindowType } from './../model';
+import { ModalWindowType, MovieData } from './../model';
 import ModalWindowOpener from './ModalWindowOpener';
 import { Genre } from '../model';
 
@@ -35,9 +35,9 @@ const INITIAL_MOVIE_LIST = [
 ];
 
 export interface Handlers {
-  addMovie: Function;
-  deleteMovie: Function;
-  updateMovie: Function;
+  addMovie: () => void;
+  deleteMovie: (movie: MovieData) => void;
+  updateMovie: (movie: MovieData) => void;
 }
 
 const App = () => {
@@ -61,7 +61,7 @@ const App = () => {
     edit: () => {
       console.log('update', selectedMovie);
     },
-  };
+  } as const;
 
   return (
     <>

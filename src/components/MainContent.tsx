@@ -1,10 +1,10 @@
 import React, { useState, SetStateAction, Dispatch } from 'react';
 import NavBar from './NavBar';
 import MoviesGrid from './MoviesGrid';
-import { Filter, Genre, MovieData } from './../model';
+import { Filter, Genre, ModalWindowType, MovieData } from './../model';
 
 export interface MainContentProps extends Filter {
-  openModalWindow: Function;
+  openModalWindow: (type: ModalWindowType) => void;
   selectMovie: Dispatch<SetStateAction<string>>;
   movies: MovieData[];
 }

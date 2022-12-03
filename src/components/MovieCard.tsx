@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import React from 'react';
-import { MovieData } from '../model';
+import { ModalWindowType, MovieData } from '../model';
 import HamburgerMenu from './HamburgerMenu';
 
 export interface MovieCardProps extends MovieData {
-  openModalWindow: Function;
-  selectMovie: Function;
+  openModalWindow: (type: ModalWindowType) => void;
+  selectMovie: (name: string) => void;
 }
 
 const MovieWrapper = styled.section`

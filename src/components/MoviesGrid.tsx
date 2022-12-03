@@ -22,19 +22,17 @@ const MoviesGrid = (props: MainContentProps) => {
 
   return (
     <Container>
-      {props.movies
-        .filter((movie: MovieData) => isMovieVisible(movie))
-        .map((movie: MovieData) => {
-          return (
-            <MovieCard
-              key={movie.value}
-              value={movie.value}
-              genre={movie.genre}
-              openModalWindow={props.openModalWindow}
-              selectMovie={props.selectMovie}
-            ></MovieCard>
-          );
-        })}
+      {props.movies.filter(isMovieVisible).map((movie: MovieData) => {
+        return (
+          <MovieCard
+            key={movie.value}
+            value={movie.value}
+            genre={movie.genre}
+            openModalWindow={props.openModalWindow}
+            selectMovie={props.selectMovie}
+          ></MovieCard>
+        );
+      })}
     </Container>
   );
 };

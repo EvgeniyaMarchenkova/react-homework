@@ -39,7 +39,7 @@ const NavBar = (props: NavBarProps) => {
   return (
     <Wrapper>
       <Wrapper>
-        {...GENRES.map((genre) => (
+        {GENRES.map((genre) => (
           <MenuItem
             key={genre}
             selected={genre === props.selectedGenre}
