@@ -3,9 +3,10 @@ import React from 'react';
 import { ModalWindowType, MovieData } from '../model';
 import HamburgerMenu from './HamburgerMenu';
 
-export interface MovieCardProps extends MovieData {
+export interface MovieCardProps {
   openModalWindow: (type: ModalWindowType) => void;
-  selectMovie: (name: string) => void;
+  selectMovie: (movie: MovieData) => void;
+  movie: MovieData;
 }
 
 const MovieWrapper = styled.section`
@@ -19,8 +20,9 @@ const MovieWrapper = styled.section`
 
 const MovieCard = (props: MovieCardProps) => {
   return (
-    <MovieWrapper onClick={() => props.selectMovie(props.value)}>
-      {props.value} <HamburgerMenu openModalWindow={props.openModalWindow} />
+    <MovieWrapper onClick={() => props.selectMovie(props.movie)}>
+      {props.movie.title}{' '}
+      <HamburgerMenu openModalWindow={props.openModalWindow} />
     </MovieWrapper>
   );
 };

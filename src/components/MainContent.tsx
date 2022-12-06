@@ -5,7 +5,7 @@ import { Filter, Genre, ModalWindowType, MovieData } from './../model';
 
 export interface MainContentProps extends Filter {
   openModalWindow: (type: ModalWindowType) => void;
-  selectMovie: Dispatch<SetStateAction<string>>;
+  selectMovie: Dispatch<SetStateAction<MovieData>>;
   movies: MovieData[];
 }
 

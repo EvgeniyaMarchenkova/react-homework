@@ -4,7 +4,8 @@
         "eslint:recommended",
         "plugin:react/jsx-runtime",
         "plugin:react/recommended",
-        "airbnb-typescript"
+        "airbnb-typescript",
+        "plugin:react-hooks/recommended"
     ],
     "plugins": [
         "react",

@@ -1,6 +1,6 @@
 export enum ModalWindowType {
-    None,
-    AddMovie,
-    EditMovie, 
-    DeleteMovie
-  }
+  None,
+  AddMovie,
+  EditMovie,
+  DeleteMovie,
+}

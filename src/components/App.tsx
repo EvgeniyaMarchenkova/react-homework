@@ -1,38 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, createContext } from 'react';
 import Header from './Header';
 import MainContent from './MainContent';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
 import { ModalWindowType, MovieData } from './../model';
 import ModalWindowOpener from './ModalWindowOpener';
-import { Genre } from '../model';
-
-const INITIAL_MOVIE_LIST = [
-  {
-    value: 'DOCUMENTARY 1',
-    genre: Genre.Documentary,
-  },
-  {
-    value: 'COMEDY 1',
-    genre: Genre.Comedy,
-  },
-  {
-    value: 'DOCUMENTARY 2',
-    genre: Genre.Documentary,
-  },
-  {
-    value: 'DOCUMENTARY 3',
-    genre: Genre.Documentary,
-  },
-  {
-    value: 'COMEDY 4',
-    genre: Genre.Comedy,
-  },
-  {
-    value: 'CRIME 2',
-    genre: Genre.Crime,
-  },
-];
+import MovieDetails from './MovieDetils';
+import { useMovieService } from '../hooks/useMovieService';
 
 export interface Handlers {
   addMovie: () => void;
@@ -40,51 +14,64 @@ export interface Handlers {
   updateMovie: (movie: MovieData) => void;
 }
 
+export const MovieContext = createContext(undefined);
+
 const App = () => {
+  const {
+    getMovies,
+    getSelectedMovie,
+    editMovie,
+    addMovie,
+    deleteMovie,
+    selectMovie,
+  } = useMovieService();
   const [searchText, setSearchText] = useState('');
   const [modalWindowType, setModalWindowType] = useState(ModalWindowType.None);
-  const [movies, setMovies] = useState([]);
-  const [selectedMovie, setSelectedMovie] = useState('');
-
-  useEffect(() => {
-    setMovies(INITIAL_MOVIE_LIST);
-  }, []);
+  const [isViewMode, setIsViewMode] = useState(false);
 
   let MOVIE_HANDLERS = {
-    delete: () => {
-      console.log('delete', selectedMovie);
-      setMovies(movies.filter((movie) => movie.value !== selectedMovie));    
-    },
-    add: () => {
-      console.log('add');
-    },
-    edit: () => {
-      console.log('update', selectedMovie);
-    },
+    delete: deleteMovie,
+    add: addMovie,
+    edit: editMovie,
   } as const;
+
+  const onSelectMovie = (movie: MovieData) => {
+    selectMovie(movie);
+    setIsViewMode(true);
+  };
 
   return (
     <>
-      {modalWindowType !== ModalWindowType.None && (
-        <ModalWindowOpener
-          movieHandlers={MOVIE_HANDLERS}
-          type={modalWindowType}
-          onCloseWindow={() => setModalWindowType(ModalWindowType.None)}
-        />
-      )}
-      <Header
-        searchText={searchText}
-        onChangedSearchText={setSearchText}
-        openAddMovieWindow={() => setModalWindowType(ModalWindowType.AddMovie)}
-      />
-      <ErrorBoundary>
-        <MainContent
-          movies={movies}
-          searchText={searchText}
-          openModalWindow={(type: ModalWindowType) => setModalWindowType(type)}
-          selectMovie={setSelectedMovie}
-        />
-      </ErrorBoundary>
+      <MovieContext.Provider value={getSelectedMovie()}>
+        {modalWindowType !== ModalWindowType.None && (
+          <ModalWindowOpener
+            movieHandlers={MOVIE_HANDLERS}
+            type={modalWindowType}
+            onCloseWindow={() => setModalWindowType(ModalWindowType.None)}
+          />
+        )}
+        {isViewMode ? (
+          <MovieDetails onSearchClick={() => setIsViewMode(false)} />
+        ) : (
+          <Header
+            searchText={searchText}
+            onChangedSearchText={setSearchText}
+            openAddMovieWindow={() =>
+              setModalWindowType(ModalWindowType.AddMovie)
+            }
+          />
+        )}
+        <ErrorBoundary>
+          <MainContent
+            movies={getMovies()}
+            searchText={searchText}
+            openModalWindow={(type: ModalWindowType) =>
+              setModalWindowType(type)
+            }
+            selectMovie={onSelectMovie}
+          />
+        </ErrorBoundary>
+      </MovieContext.Provider>
       <Footer />
     </>
   );
