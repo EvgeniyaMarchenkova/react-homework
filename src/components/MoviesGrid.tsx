@@ -21,12 +21,13 @@ const MoviesGrid = (props: MainContentProps) => {
   };
 
   return (
-    <Container>
+    <Container onClick={() => props.switchViewMode(true)}>
       {props.movies.filter(isMovieVisible).map((movie: MovieData) => {
         return (
           <MovieCard
             key={movie.title}
             movie={movie}
+            switchViewMode={props.switchViewMode}
             openModalWindow={props.openModalWindow}
             selectMovie={props.selectMovie}
           ></MovieCard>

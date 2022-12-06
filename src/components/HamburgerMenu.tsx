@@ -4,6 +4,7 @@ import { ModalWindowType } from './../model';
 
 interface HamburgerMenuProps {
   openModalWindow: (modalWindowType: ModalWindowType) => void;
+  selectMovie: () => void;
 }
 
 const HamburgerMenuWrapper = styled.div`
@@ -37,19 +38,27 @@ const EditDeleteMenu = styled.div`
 const HamburgerMenu = (props: HamburgerMenuProps) => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
 
+  const onMenuItemClick = (type: ModalWindowType) => {
+    props.selectMovie();
+    props.openModalWindow(type);
+  };
+
   return (
-    <HamburgerMenuWrapper onClick={() => setIsMenuOpened(!isMenuOpened)}>
+    <HamburgerMenuWrapper
+      onClick={(event: any) => {
+        event.stopPropagation();
+        setIsMenuOpened(!isMenuOpened);
+      }}
+    >
       <HamburgerMenuItem />
       <HamburgerMenuItem />
       <HamburgerMenuItem />
       {isMenuOpened && (
         <EditDeleteMenu>
-          <div
-            onClick={() => props.openModalWindow(ModalWindowType.DeleteMovie)}
-          >
+          <div onClick={() => onMenuItemClick(ModalWindowType.DeleteMovie)}>
             Delete
           </div>
-          <div onClick={() => props.openModalWindow(ModalWindowType.EditMovie)}>
+          <div onClick={() => onMenuItemClick(ModalWindowType.EditMovie)}>
             Edit
           </div>
         </EditDeleteMenu>

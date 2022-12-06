@@ -35,11 +35,6 @@ const App = () => {
     edit: editMovie,
   } as const;
 
-  const onSelectMovie = (movie: MovieData) => {
-    selectMovie(movie);
-    setIsViewMode(true);
-  };
-
   return (
     <>
       <MovieContext.Provider value={getSelectedMovie()}>
@@ -68,7 +63,8 @@ const App = () => {
             openModalWindow={(type: ModalWindowType) =>
               setModalWindowType(type)
             }
-            selectMovie={onSelectMovie}
+            switchViewMode={setIsViewMode}
+            selectMovie={selectMovie}
           />
         </ErrorBoundary>
       </MovieContext.Provider>

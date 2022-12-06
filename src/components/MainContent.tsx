@@ -7,6 +7,7 @@ export interface MainContentProps extends Filter {
   openModalWindow: (type: ModalWindowType) => void;
   selectMovie: Dispatch<SetStateAction<MovieData>>;
   movies: MovieData[];
+  switchViewMode: (isViewMode: boolean) => void;
 }
 
 const MainContent = (props: MainContentProps) => {
@@ -24,6 +25,7 @@ const MainContent = (props: MainContentProps) => {
         searchText={props.searchText}
         openModalWindow={props.openModalWindow}
         selectMovie={props.selectMovie}
+        switchViewMode={props.switchViewMode}
       />
     </div>
   );
