@@ -1,19 +1,93 @@
-import React,  { useState }  from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from './Header';
 import MainContent from './MainContent';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
+import { ModalWindowType, MovieData } from './../model';
+import ModalWindowOpener from './ModalWindowOpener';
+import { Genre } from '../model';
+
+const INITIAL_MOVIE_LIST = [
+  {
+    value: 'DOCUMENTARY 1',
+    genre: Genre.Documentary,
+  },
+  {
+    value: 'COMEDY 1',
+    genre: Genre.Comedy,
+  },
+  {
+    value: 'DOCUMENTARY 2',
+    genre: Genre.Documentary,
+  },
+  {
+    value: 'DOCUMENTARY 3',
+    genre: Genre.Documentary,
+  },
+  {
+    value: 'COMEDY 4',
+    genre: Genre.Comedy,
+  },
+  {
+    value: 'CRIME 2',
+    genre: Genre.Crime,
+  },
+];
+
+export interface Handlers {
+  addMovie: () => void;
+  deleteMovie: (movie: MovieData) => void;
+  updateMovie: (movie: MovieData) => void;
+}
 
 const App = () => {
-  const [ searchText, setSearchText ] = useState('');
+  const [searchText, setSearchText] = useState('');
+  const [modalWindowType, setModalWindowType] = useState(ModalWindowType.None);
+  const [movies, setMovies] = useState([]);
+  const [selectedMovie, setSelectedMovie] = useState('');
 
-  return <>
-    <Header searchText={ searchText } onChangedSearchText={ setSearchText }/>
-    <ErrorBoundary>
-      <MainContent searchText={ searchText }/>
+  useEffect(() => {
+    setMovies(INITIAL_MOVIE_LIST);
+  }, []);
+
+  let MOVIE_HANDLERS = {
+    delete: () => {
+      console.log('delete', selectedMovie);
+      setMovies(movies.filter((movie) => movie.value !== selectedMovie));    
+    },
+    add: () => {
+      console.log('add');
+    },
+    edit: () => {
+      console.log('update', selectedMovie);
+    },
+  } as const;
+
+  return (
+    <>
+      {modalWindowType !== ModalWindowType.None && (
+        <ModalWindowOpener
+          movieHandlers={MOVIE_HANDLERS}
+          type={modalWindowType}
+          onCloseWindow={() => setModalWindowType(ModalWindowType.None)}
+        />
+      )}
+      <Header
+        searchText={searchText}
+        onChangedSearchText={setSearchText}
+        openAddMovieWindow={() => setModalWindowType(ModalWindowType.AddMovie)}
+      />
+      <ErrorBoundary>
+        <MainContent
+          movies={movies}
+          searchText={searchText}
+          openModalWindow={(type: ModalWindowType) => setModalWindowType(type)}
+          selectMovie={setSelectedMovie}
+        />
       </ErrorBoundary>
-    <Footer/>
-    </>;  
+      <Footer />
+    </>
+  );
 };
 
 export default App;
