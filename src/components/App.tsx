@@ -18,13 +18,13 @@ export const MovieContext = createContext(undefined);
 
 const App = () => {
   const {
-    getMovies,
-    getSelectedMovie,
+    movies,
     editMovie,
     addMovie,
     deleteMovie,
     selectMovie,
   } = useMovieService();
+
   const [searchText, setSearchText] = useState('');
   const [modalWindowType, setModalWindowType] = useState(ModalWindowType.None);
   const [isViewMode, setIsViewMode] = useState(false);
@@ -37,7 +37,7 @@ const App = () => {
 
   return (
     <>
-      <MovieContext.Provider value={getSelectedMovie()}>
+      <MovieContext.Provider value={movies}>
         {modalWindowType !== ModalWindowType.None && (
           <ModalWindowOpener
             movieHandlers={MOVIE_HANDLERS}
@@ -58,7 +58,7 @@ const App = () => {
         )}
         <ErrorBoundary>
           <MainContent
-            movies={getMovies()}
+            movies={movies}
             searchText={searchText}
             openModalWindow={(type: ModalWindowType) =>
               setModalWindowType(type)

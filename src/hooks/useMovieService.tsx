@@ -48,8 +48,6 @@ export function useMovieService() {
     setMovies(INITIAL_MOVIE_LIST);
   }, []);
 
-  const getMovies = () => movies;
-
   const deleteMovie = () => {
     console.log('delete', selectedMovie);
     setMovies(movies.filter((movie) => movie.title !== selectedMovie.title));
@@ -67,11 +65,8 @@ export function useMovieService() {
     setSelectedMovie(movie);
   };
 
-  const getSelectedMovie = () => selectedMovie;
-
   return {
-    getMovies,
-    getSelectedMovie,
+    movies,
     deleteMovie,
     addMovie,
     editMovie,
