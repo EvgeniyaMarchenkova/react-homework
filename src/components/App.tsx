@@ -3,10 +3,17 @@ import Header from './Header';
 import MainContent from './MainContent';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
-import { ModalWindowType, MovieData } from './../model';
+import { ModalWindowType, MovieData, SearchBy } from './../model';
 import ModalWindowOpener from './ModalWindowOpener';
 import MovieDetails from './MovieDetils';
 import { useMovieService } from '../hooks/useMovieService';
+import { useGetMoviesQuery } from '../query/movies';
+import { useAppSelector, useAppDispatch } from '../store/hooks';
+import {
+  selectMovies,
+  selectSelectedMovie,
+  setMovies,
+} from '../store/moviesSlice';
 
 export interface Handlers {
   addMovie: () => void;
@@ -17,17 +24,28 @@ export interface Handlers {
 export const MovieContext = createContext(undefined);
 
 const App = () => {
-  const {
-    movies,
-    editMovie,
-    addMovie,
-    deleteMovie,
-    selectMovie,
-  } = useMovieService();
+  const movies = useAppSelector(selectMovies);
+  const selectedMovie = useAppSelector(selectSelectedMovie);
 
   const [searchText, setSearchText] = useState('');
+  const [sortBy, setSortBy] = useState('');
   const [modalWindowType, setModalWindowType] = useState(ModalWindowType.None);
   const [isViewMode, setIsViewMode] = useState(false);
+  const [selectedGenre, setSelectedGenre] = useState();
+
+  const queryParams = {
+    search: searchText,
+    searchBy: SearchBy.Title,
+    sortOrder: 'asc',
+    sortBy: sortBy,
+    filter: selectedGenre,
+  };
+  const { data, error, isLoading, refetch } = useGetMoviesQuery(queryParams);
+
+  const dispatch = useAppDispatch();
+  dispatch(setMovies(data?.data));
+
+  const { editMovie, addMovie, deleteMovie } = useMovieService();
 
   let MOVIE_HANDLERS = {
     delete: deleteMovie,
@@ -35,39 +53,55 @@ const App = () => {
     edit: editMovie,
   } as const;
 
+  const onCloseModalWindowHandler = (isDataUpdated: boolean) => {
+    console.log('onCloseModalWindowHandler', isDataUpdated);
+    if (isDataUpdated) {
+      refetch();
+    }
+    setModalWindowType(ModalWindowType.None);
+  };
+
   return (
     <>
-      <MovieContext.Provider value={movies}>
-        {modalWindowType !== ModalWindowType.None && (
-          <ModalWindowOpener
-            movieHandlers={MOVIE_HANDLERS}
-            type={modalWindowType}
-            onCloseWindow={() => setModalWindowType(ModalWindowType.None)}
-          />
-        )}
-        {isViewMode ? (
-          <MovieDetails onSearchClick={() => setIsViewMode(false)} />
-        ) : (
-          <Header
-            searchText={searchText}
-            onChangedSearchText={setSearchText}
-            openAddMovieWindow={() =>
-              setModalWindowType(ModalWindowType.AddMovie)
-            }
-          />
-        )}
-        <ErrorBoundary>
+      {modalWindowType !== ModalWindowType.None && (
+        <ModalWindowOpener
+          movieHandlers={MOVIE_HANDLERS}
+          type={modalWindowType}
+          onCloseWindow={onCloseModalWindowHandler}
+        />
+      )}
+      {isViewMode ? (
+        <MovieDetails
+          movie={selectedMovie}
+          onSearchClick={() => setIsViewMode(false)}
+        />
+      ) : (
+        <Header
+          searchText={searchText}
+          onChangedSearchText={setSearchText}
+          openAddMovieWindow={() =>
+            setModalWindowType(ModalWindowType.AddMovie)
+          }
+        />
+      )}
+      <ErrorBoundary>
+        {error ? (
+          <>Oh no, there was an error</>
+        ) : isLoading ? (
+          <>Loading...</>
+        ) : data ? (
           <MainContent
             movies={movies}
-            searchText={searchText}
+            selectedGenre={selectedGenre}
+            onChangeSort={setSortBy}
+            onChangeSelectedGenre={setSelectedGenre}
             openModalWindow={(type: ModalWindowType) =>
               setModalWindowType(type)
             }
             switchViewMode={setIsViewMode}
-            selectMovie={selectMovie}
           />
-        </ErrorBoundary>
-      </MovieContext.Provider>
+        ) : null}
+      </ErrorBoundary>
       <Footer />
     </>
   );

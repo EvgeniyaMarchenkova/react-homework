@@ -24,21 +24,32 @@ const MenuItem = styled.span<MenuItemProps>`
 
 interface NavBarProps {
   selectedGenre: string;
-  onChangeSelectedGenre: React.Dispatch<React.SetStateAction<Genre>>;
+  onChangeSort: React.Dispatch<React.SetStateAction<string>>;
+  onChangeSelectedGenre: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const GENRES = [
-  Genre.All,
   Genre.Documentary,
   Genre.Comedy,
   Genre.Crime,
   Genre.Horror,
+  Genre.Adventure,
+  Genre.Animation,
+  Genre.Drama,
+  Genre.Family,
+  Genre.Romance,
 ] as const;
 
 const NavBar = (props: NavBarProps) => {
   return (
     <Wrapper>
       <Wrapper>
+        <MenuItem
+          selected={null === props.selectedGenre}
+          onClick={() => props.onChangeSelectedGenre('')}
+        >
+          ALL
+        </MenuItem>
         {GENRES.map((genre) => (
           <MenuItem
             key={genre}
@@ -49,7 +60,7 @@ const NavBar = (props: NavBarProps) => {
           </MenuItem>
         ))}
       </Wrapper>
-      <Sorting />
+      <Sorting onChangeSort={props.onChangeSort} />
     </Wrapper>
   );
 };
