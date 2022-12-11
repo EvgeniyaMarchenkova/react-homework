@@ -1,6 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
+interface SortingProps {
+  onChangeSort: React.Dispatch<React.SetStateAction<string>>;
+}
+
 export const SORT_LIST = [
   {
     value: 'title',
@@ -22,7 +26,7 @@ const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-const Sorting = (props: any) => {
+const Sorting = (props: SortingProps) => {
   return (
     <Wrapper>
       <span>Sort by: </span>

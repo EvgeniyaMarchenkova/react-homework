@@ -14,6 +14,7 @@ import {
   selectSelectedMovie,
   setMovies,
 } from '../store/moviesSlice';
+import { SortOrder } from '../model/movies-query-params';
 
 export interface Handlers {
   addMovie: () => void;
@@ -36,7 +37,7 @@ const App = () => {
   const queryParams = {
     search: searchText,
     searchBy: SearchBy.Title,
-    sortOrder: 'asc',
+    sortOrder: SortOrder.Increase,
     sortBy: sortBy,
     filter: selectedGenre,
   };
@@ -54,7 +55,6 @@ const App = () => {
   } as const;
 
   const onCloseModalWindowHandler = (isDataUpdated: boolean) => {
-    console.log('onCloseModalWindowHandler', isDataUpdated);
     if (isDataUpdated) {
       refetch();
     }

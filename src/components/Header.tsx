@@ -64,6 +64,7 @@ const Header = (props: HeaderData) => {
         + ADD MOVIE
       </AddMovieButton>
       <Input
+        value={props.searchText}
         onChange={(ev: ChangeEvent<HTMLInputElement>) =>
           props.onChangedSearchText(ev.target.value)
         }
