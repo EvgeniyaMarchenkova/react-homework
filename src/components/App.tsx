@@ -40,7 +40,7 @@ const App = () => {
     sortOrder: SortOrder.Increase,
     sortBy: sortBy,
     filter: selectedGenre,
-  };
+  } as const;
   const { data, error, isLoading, refetch } = useGetMoviesQuery(queryParams);
 
   const dispatch = useAppDispatch();
