@@ -45,7 +45,7 @@ const HamburgerMenu = (props: HamburgerMenuProps) => {
 
   return (
     <HamburgerMenuWrapper
-      onClick={(event: any) => {
+      onClick={(event: React.MouseEvent<HTMLDivElement>) => {
         event.stopPropagation();
         setIsMenuOpened(!isMenuOpened);
       }}

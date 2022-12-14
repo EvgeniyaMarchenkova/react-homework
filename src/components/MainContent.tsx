@@ -8,8 +8,8 @@ export interface MainContentProps {
   movies: MovieData[];
   selectedGenre?: Genre;
   switchViewMode: (isViewMode: boolean) => void;
-  onChangeSort?: any;
-  onChangeSelectedGenre?: any;
+  onChangeSort?: React.Dispatch<React.SetStateAction<string>>;
+  onChangeSelectedGenre?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const MainContent = (props: MainContentProps) => {
@@ -21,7 +21,7 @@ const MainContent = (props: MainContentProps) => {
         onChangeSelectedGenre={props.onChangeSelectedGenre}
       />
       <MoviesGrid
-        movies={props.movies}
+        movies={props.movies || []}
         openModalWindow={props.openModalWindow}
         switchViewMode={props.switchViewMode}
       />

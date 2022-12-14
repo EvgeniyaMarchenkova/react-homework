@@ -8,12 +8,8 @@ import ModalWindowOpener from './ModalWindowOpener';
 import MovieDetails from './MovieDetils';
 import { useMovieService } from '../hooks/useMovieService';
 import { useGetMoviesQuery } from '../query/movies';
-import { useAppSelector, useAppDispatch } from '../store/hooks';
-import {
-  selectMovies,
-  selectSelectedMovie,
-  setMovies,
-} from '../store/moviesSlice';
+import { useAppSelector } from '../store/hooks';
+import { selectSelectedMovie } from '../store/moviesSlice';
 import { SortOrder } from '../model/movies-query-params';
 
 export interface Handlers {
@@ -25,7 +21,6 @@ export interface Handlers {
 export const MovieContext = createContext(undefined);
 
 const App = () => {
-  const movies = useAppSelector(selectMovies);
   const selectedMovie = useAppSelector(selectSelectedMovie);
 
   const [searchText, setSearchText] = useState('');
@@ -43,12 +38,9 @@ const App = () => {
   } as const;
   const { data, error, isLoading, refetch } = useGetMoviesQuery(queryParams);
 
-  const dispatch = useAppDispatch();
-  dispatch(setMovies(data?.data));
-
   const { editMovie, addMovie, deleteMovie } = useMovieService();
 
-  let MOVIE_HANDLERS = {
+  const MOVIE_HANDLERS = {
     delete: deleteMovie,
     add: addMovie,
     edit: editMovie,
@@ -91,7 +83,7 @@ const App = () => {
           <>Loading...</>
         ) : data ? (
           <MainContent
-            movies={movies}
+            movies={data?.data}
             selectedGenre={selectedGenre}
             onChangeSort={setSortBy}
             onChangeSelectedGenre={setSelectedGenre}
