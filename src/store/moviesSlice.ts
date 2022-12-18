@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './store';
-import { Genre, MovieData } from '../model';
+import { MovieData } from '../model';
 
 interface MoviesState {
   selectedMovie: MovieData;
