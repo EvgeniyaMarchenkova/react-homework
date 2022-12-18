@@ -1,10 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Genre, MovieData, SearchBy } from '../model';
+import { MovieData } from '../model';
 import { MoviesQueryParams } from '../model/movies-query-params';
-import { selectSearch, selectSearchBy } from '../store/filterSlice';
-import { useAppSelector } from '../store/hooks';
 
-export const moviesApi: any = createApi({
+export const moviesApi = createApi({
   reducerPath: 'moviesApi',
   baseQuery: fetchBaseQuery({
     baseUrl: 'http://localhost:4000',
@@ -26,11 +24,11 @@ export const moviesApi: any = createApi({
       }),
     }),
     editMovie: builder.mutation({
-      // query: ({ id, ...rest }) => ({
-      //   url: `/movies/${id}`,
-      //   method: 'PUT',
-      //   body: rest,
-      // }),
+      query: (data: MovieData) => ({
+        url: '/movies',
+        method: 'PUT',
+        body: data,
+      }),
     }),
     deleteMovie: builder.mutation({
       query: (id: string) => ({

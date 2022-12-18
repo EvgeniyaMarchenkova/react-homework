@@ -1,5 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
+import { resetSelectedMovie } from '../store/moviesSlice';
+import { useAppDispatch } from '../store/hooks';
 
 interface HeaderData {
   searchText: string;
@@ -58,9 +60,16 @@ const HeaderContainer = styled.div`
 `;
 
 const Header = (props: HeaderData) => {
+  const dispatch = useAppDispatch();
+
   return (
     <HeaderContainer>
-      <AddMovieButton onClick={() => props.openAddMovieWindow(undefined)}>
+      <AddMovieButton
+        onClick={() => {
+          dispatch(resetSelectedMovie());
+          props.openAddMovieWindow(undefined);
+        }}
+      >
         + ADD MOVIE
       </AddMovieButton>
       <Input

@@ -14,12 +14,14 @@
   "author": "Evgeniya Marchenkova",
   "license": "ISC",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
+    "formik": "^2.2.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
+    "react-redux": "^8.0.5",
     "styled-components": "^5.3.6",
-    "@reduxjs/toolkit": "^1.9.1",
-    "react-redux": "^8.0.5"
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/cli": "^7.19.3",
