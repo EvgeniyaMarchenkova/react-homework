@@ -30,10 +30,11 @@ const AddUpdateMovie = (props: AddUpdateMovieProps) => {
 
   const SignupSchema = Yup.object().shape({
     title: Yup.string().required('Required'),
-    release_date: Yup.string(),
-    // movieUrl: Yup.string().email('Invalid email').required('Required'),
+    release_date: Yup.string()
+      .required('Required')
+      .matches(/\d{4}-\d{2}-\d{2}/, 'The correct format is 2022-12-12'),
     rating: Yup.number(),
-    // genres: Yup.string().required('Required'),
+    genres: Yup.array().of(Yup.string()).min(1, 'Required'),
     runtime: Yup.number().required('Required'),
     overview: Yup.string().required('Required'),
     poster_path: Yup.string().required('Required'),
@@ -150,6 +151,9 @@ const AddUpdateMovie = (props: AddUpdateMovieProps) => {
               </div>
             </ItemWrapper>
 
+            {errors.genres && touched.genres ? (
+              <ErrorMessageWrapper>{errors.genres}</ErrorMessageWrapper>
+            ) : null}
             <div role="group" aria-labelledby="checkbox-group">
               {GENRES.map((genre) => (
                 <label key={genre}>
