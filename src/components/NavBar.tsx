@@ -28,7 +28,7 @@ interface NavBarProps {
   onChangeSelectedGenre: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const GENRES = [
+export const GENRES = [
   Genre.Documentary,
   Genre.Comedy,
   Genre.Crime,

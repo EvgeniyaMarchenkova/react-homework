@@ -13,7 +13,6 @@ const HamburgerMenuWrapper = styled.div`
   display: flex;
   justify-content: space-around;
   flex-flow: column nowrap;
-  z-index: 10;
   position: absolute;
   top: 10px;
   right: 10px;
@@ -33,6 +32,7 @@ const EditDeleteMenu = styled.div`
   top: 0;
   background: whitesmoke;
   padding: 4px;
+  z-index: 10;
 `;
 
 const HamburgerMenu = (props: HamburgerMenuProps) => {
