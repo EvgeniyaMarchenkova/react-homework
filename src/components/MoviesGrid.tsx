@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import MovieCard from './MovieCard';
-import { MovieData, Genre } from '../model';
+import { MovieData } from '../model';
 import { MainContentProps } from './MainContent';
 
 const Container = styled.div`
@@ -11,25 +11,15 @@ const Container = styled.div`
 `;
 
 const MoviesGrid = (props: MainContentProps) => {
-  const isMovieVisible = (movie: MovieData) => {
-    const isMatchesSelectedGenre =
-      props.genre === Genre.All || props.genre === movie.genre;
-    const isMatchesSearch = movie.title.includes(
-      props.searchText.toUpperCase(),
-    );
-    return isMatchesSelectedGenre && isMatchesSearch;
-  };
-
   return (
     <Container onClick={() => props.switchViewMode(true)}>
-      {props.movies.filter(isMovieVisible).map((movie: MovieData) => {
+      {props.movies.map((movie: MovieData) => {
         return (
           <MovieCard
             key={movie.title}
             movie={movie}
             switchViewMode={props.switchViewMode}
             openModalWindow={props.openModalWindow}
-            selectMovie={props.selectMovie}
           ></MovieCard>
         );
       })}

@@ -1,30 +1,28 @@
-import React, { useState, SetStateAction, Dispatch } from 'react';
+import React from 'react';
 import NavBar from './NavBar';
 import MoviesGrid from './MoviesGrid';
-import { Filter, Genre, ModalWindowType, MovieData } from './../model';
+import { Genre, ModalWindowType, MovieData } from './../model';
 
-export interface MainContentProps extends Filter {
+export interface MainContentProps {
   openModalWindow: (type: ModalWindowType) => void;
-  selectMovie: Dispatch<SetStateAction<MovieData>>;
   movies: MovieData[];
+  selectedGenre?: Genre;
   switchViewMode: (isViewMode: boolean) => void;
+  onChangeSort?: React.Dispatch<React.SetStateAction<string>>;
+  onChangeSelectedGenre?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const MainContent = (props: MainContentProps) => {
-  const [selectedGenre, setSelectedGenre] = useState(Genre.All);
-
   return (
     <div>
       <NavBar
-        selectedGenre={selectedGenre}
-        onChangeSelectedGenre={setSelectedGenre}
+        selectedGenre={props.selectedGenre}
+        onChangeSort={props.onChangeSort}
+        onChangeSelectedGenre={props.onChangeSelectedGenre}
       />
       <MoviesGrid
-        movies={props.movies}
-        genre={selectedGenre}
-        searchText={props.searchText}
+        movies={props.movies || []}
         openModalWindow={props.openModalWindow}
-        selectMovie={props.selectMovie}
         switchViewMode={props.switchViewMode}
       />
     </div>

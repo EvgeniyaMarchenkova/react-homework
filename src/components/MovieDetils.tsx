@@ -1,10 +1,10 @@
 import styled from 'styled-components';
-import React, { useContext } from 'react';
-import { MovieContext } from './App';
+import React from 'react';
 import { MovieData } from '../model';
 import { BsSearch } from 'react-icons/bs';
 
 interface MovieDetailsProps {
+  movie: MovieData;
   onSearchClick: () => void;
 }
 
@@ -23,14 +23,13 @@ const DescriptionWrapper = styled.div`
 `;
 
 const MovieDetails = (props: MovieDetailsProps) => {
-  const movie: MovieData = useContext(MovieContext);
   return (
     <MovieDetailsWrapper>
       <FlexWrapper>
-        {movie.title}
+        {props.movie.title}
         <BsSearch onClick={props.onSearchClick} />
       </FlexWrapper>
-      <DescriptionWrapper>{movie.description}</DescriptionWrapper>
+      <DescriptionWrapper>{props.movie.overview}</DescriptionWrapper>
     </MovieDetailsWrapper>
   );
 };

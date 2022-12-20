@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import { ModalWindowType } from './../model/modal-window';
 import AddUpdateMovie from './AddMovie';
 import DeleteMovie from './DeleteMovie';
+import {
+  useDeleteMovieMutation,
+  useEditMovieMutation,
+  useAddMovieMutation,
+} from '../query/movies';
+import { selectSelectedMovie } from '../store/moviesSlice';
+import { useAppSelector } from '../store/hooks';
 
 interface ModalWindowOpenerProps {
   type: ModalWindowType;
@@ -35,19 +42,31 @@ export const ModalContent = styled.div`
 `;
 
 const ModalWindowOpener = (props: ModalWindowOpenerProps) => {
-  const onAddMovie = () => {
-    props.movieHandlers.add();
-    props.onCloseWindow();
+  const selectedMovieId = useAppSelector(selectSelectedMovie).id;
+  const [deleteTask]: any = useDeleteMovieMutation();
+  const [editTask]: any = useEditMovieMutation();
+  const [addMovie]: any = useAddMovieMutation();
+
+  const onAddMovie = (isDataUpdated: boolean) => {
+    console.log('ModalWindowOpener', isDataUpdated);
+    addMovie();
+    props.onCloseWindow(isDataUpdated);
   };
 
-  const onUpdateMovie = () => {
-    props.movieHandlers.edit();
-    props.onCloseWindow();
+  const onUpdateMovie = (isDataUpdated: boolean) => {
+    console.log('ModalWindowOpener', isDataUpdated);
+    editTask(selectedMovieId);
+    props.onCloseWindow(isDataUpdated);
   };
 
-  const onDeleteMovie = () => {
-    props.movieHandlers.delete();
-    props.onCloseWindow();
+  const onDeleteMovie = (isDataUpdated: boolean) => {
+    console.log('ModalWindowOpener', isDataUpdated);
+    deleteTask(selectedMovieId);
+    props.onCloseWindow(isDataUpdated);
+  };
+
+  const onClose = () => {
+    props.onCloseWindow(false);
   };
 
   const getModalWindow = () => {
@@ -65,7 +84,7 @@ const ModalWindowOpener = (props: ModalWindowOpenerProps) => {
     <ModalWrapper>
       <ModalContent>
         {getModalWindow()}
-        <button onClick={props.onCloseWindow}>Close window</button>
+        <button onClick={onClose}>Close window</button>
       </ModalContent>
     </ModalWrapper>
   );

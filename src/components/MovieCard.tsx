@@ -2,10 +2,11 @@ import styled from 'styled-components';
 import React from 'react';
 import { ModalWindowType, MovieData } from '../model';
 import HamburgerMenu from './HamburgerMenu';
+import { useAppDispatch } from '../store/hooks';
+import { setSelectedMovie } from '../store/moviesSlice';
 
 export interface MovieCardProps {
   openModalWindow: (type: ModalWindowType) => void;
-  selectMovie: (movie: MovieData) => void;
   switchViewMode: (isViewMode: boolean) => void;
   movie: MovieData;
 }
@@ -20,10 +21,12 @@ const MovieWrapper = styled.section`
 `;
 
 const MovieCard = (props: MovieCardProps) => {
+  const dispatch = useAppDispatch();
+  const selectMovie = () => dispatch(setSelectedMovie(props.movie));
   return (
     <MovieWrapper
       onClick={() => {
-        props.selectMovie(props.movie);
+        selectMovie();
         props.switchViewMode(true);
       }}
     >
@@ -32,7 +35,7 @@ const MovieCard = (props: MovieCardProps) => {
         openModalWindow={props.openModalWindow}
         selectMovie={() => {
           props.switchViewMode(false);
-          props.selectMovie(props.movie);
+          selectMovie();
         }}
       />
     </MovieWrapper>
