@@ -1,6 +1,7 @@
 import { Genre } from './genre';
 
 export interface MovieData {
-  value: string;
+  title: string;
   genre: Genre;
+  description: string;
 }

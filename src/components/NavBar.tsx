@@ -47,7 +47,7 @@ const NavBar = (props: NavBarProps) => {
           >
             {genre}
           </MenuItem>
-        ))} 
+        ))}
       </Wrapper>
       <Sorting />
     </Wrapper>

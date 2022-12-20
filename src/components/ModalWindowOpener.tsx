@@ -52,14 +52,14 @@ const ModalWindowOpener = (props: ModalWindowOpenerProps) => {
 
   const getModalWindow = () => {
     switch (props.type) {
-      case (ModalWindowType.AddMovie):
+      case ModalWindowType.AddMovie:
         return <AddUpdateMovie onAddMovie={onAddMovie} />;
-      case (ModalWindowType.EditMovie):
+      case ModalWindowType.EditMovie:
         return <AddUpdateMovie onUpdateMovie={onUpdateMovie} />;
-      case (ModalWindowType.DeleteMovie):
+      case ModalWindowType.DeleteMovie:
         return <DeleteMovie onDeleteMovie={onDeleteMovie} />;
     }
-  };  
+  };
 
   return (
     <ModalWrapper>

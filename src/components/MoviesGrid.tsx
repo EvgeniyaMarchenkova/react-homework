@@ -14,20 +14,20 @@ const MoviesGrid = (props: MainContentProps) => {
   const isMovieVisible = (movie: MovieData) => {
     const isMatchesSelectedGenre =
       props.genre === Genre.All || props.genre === movie.genre;
-    const isMatchesSearch = movie.value.includes(
+    const isMatchesSearch = movie.title.includes(
       props.searchText.toUpperCase(),
     );
     return isMatchesSelectedGenre && isMatchesSearch;
   };
 
   return (
-    <Container>
+    <Container onClick={() => props.switchViewMode(true)}>
       {props.movies.filter(isMovieVisible).map((movie: MovieData) => {
         return (
           <MovieCard
-            key={movie.value}
-            value={movie.value}
-            genre={movie.genre}
+            key={movie.title}
+            movie={movie}
+            switchViewMode={props.switchViewMode}
             openModalWindow={props.openModalWindow}
             selectMovie={props.selectMovie}
           ></MovieCard>
