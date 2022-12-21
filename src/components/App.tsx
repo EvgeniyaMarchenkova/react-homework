@@ -3,7 +3,7 @@ import Header from './Header';
 import MainContent from './MainContent';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { ModalWindowType, SearchBy } from './../model';
 import ModalWindowOpener from './ModalWindowOpener';
 import MovieDetails from './MovieDetils';
@@ -15,13 +15,15 @@ import { SortOrder } from '../model/movies-query-params';
 const App = () => {
   const selectedMovie = useAppSelector(selectSelectedMovie);
   const { searchText } = useParams();
+  const navigate = useNavigate();
 
   const [modalWindowType, setModalWindowType] = useState(ModalWindowType.None);
   const [isViewMode, setIsViewMode] = useState(false);
-  const [, setSelectedGenre] = useState();
+
   const [searchParams, setSearchParams] = useSearchParams('');
   const selectedGenre = searchParams.get('filter');
   const sortBy = searchParams.get('sortBy');
+  const movieId = searchParams.get('movie');
 
   const queryParams = {
     search: searchText,
@@ -47,7 +49,7 @@ const App = () => {
           onCloseWindow={onCloseModalWindowHandler}
         />
       )}
-      {isViewMode ? (
+      {movieId ? (
         <MovieDetails
           movie={selectedMovie}
           onSearchClick={() => setIsViewMode(false)}
@@ -55,10 +57,13 @@ const App = () => {
       ) : (
         <Header
           searchText={searchText}
-          // onChangedSearchText={(e: any) => {
-          //   console.log(e);
-          //   setSearchParams({ filter: e.target.value });
-          // }}
+          onChangedSearchText={(e: any) => {
+            console.log(e);
+            navigate({
+              pathname: `/search/${e}`,
+              search: `?sortBy=${sortBy}&filter=${selectedGenre}`,
+            });
+          }}
           openAddMovieWindow={() =>
             setModalWindowType(ModalWindowType.AddMovie)
           }

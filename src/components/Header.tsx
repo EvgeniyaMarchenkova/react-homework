@@ -5,7 +5,7 @@ import { useAppDispatch } from '../store/hooks';
 
 interface HeaderData {
   searchText: string;
-  // onChangedSearchText: React.Dispatch<React.SetStateAction<string>>;
+  onChangedSearchText: React.Dispatch<React.SetStateAction<string>>;
   openAddMovieWindow: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -74,10 +74,9 @@ const Header = (props: HeaderData) => {
       </AddMovieButton>
       <Input
         value={props.searchText}
-        // onChange={
-        // (ev: ChangeEvent<HTMLInputElement>) =>
-        // props.onChangedSearchText(ev.target.value)
-        // }
+        onChange={(ev: ChangeEvent<HTMLInputElement>) =>
+          props.onChangedSearchText(ev.target.value)
+        }
         type="text"
         placeholder="Select"
       />
