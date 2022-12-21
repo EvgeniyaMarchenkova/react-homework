@@ -5,10 +5,15 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 module.exports = {
   mode: 'production',
-  entry: './src/index.js',
+  entry: './src/index.jsx',
+  devServer: {
+    port: 9000,
+    historyApiFallback: true,
+  },
   output: {
     path: path.join(__dirname, '/dist'),
     filename: 'index_bundle.js',
+    publicPath: '/',
   },
   resolve: {
     extensions: ['.js', '.jsx', '.tsx', '.ts'],

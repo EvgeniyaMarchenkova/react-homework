@@ -3,6 +3,7 @@ import Header from './Header';
 import MainContent from './MainContent';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
+import { useParams } from 'react-router-dom';
 import { ModalWindowType, SearchBy } from './../model';
 import ModalWindowOpener from './ModalWindowOpener';
 import MovieDetails from './MovieDetils';
@@ -14,7 +15,9 @@ import { SortOrder } from '../model/movies-query-params';
 const App = () => {
   const selectedMovie = useAppSelector(selectSelectedMovie);
 
-  const [searchText, setSearchText] = useState('');
+  const [, setSearchText] = useState('');
+  const { searchText } = useParams();
+  console.log(searchText);
   const [sortBy, setSortBy] = useState('');
   const [modalWindowType, setModalWindowType] = useState(ModalWindowType.None);
   const [isViewMode, setIsViewMode] = useState(false);
