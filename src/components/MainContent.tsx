@@ -6,7 +6,7 @@ import { Genre, ModalWindowType, MovieData } from './../model';
 export interface MainContentProps {
   openModalWindow: (type: ModalWindowType) => void;
   movies: MovieData[];
-  selectedGenre?: Genre;
+  selectedGenre?: string;
   switchViewMode: (isViewMode: boolean) => void;
   onChangeSort?: React.Dispatch<React.SetStateAction<string>>;
   onChangeSelectedGenre?: React.Dispatch<React.SetStateAction<string>>;

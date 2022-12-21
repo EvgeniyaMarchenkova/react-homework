@@ -3,7 +3,7 @@ import Header from './Header';
 import MainContent from './MainContent';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
-import { useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import { ModalWindowType, SearchBy } from './../model';
 import ModalWindowOpener from './ModalWindowOpener';
 import MovieDetails from './MovieDetils';
@@ -14,14 +14,14 @@ import { SortOrder } from '../model/movies-query-params';
 
 const App = () => {
   const selectedMovie = useAppSelector(selectSelectedMovie);
-
-  const [, setSearchText] = useState('');
   const { searchText } = useParams();
-  console.log(searchText);
+
   const [sortBy, setSortBy] = useState('');
   const [modalWindowType, setModalWindowType] = useState(ModalWindowType.None);
   const [isViewMode, setIsViewMode] = useState(false);
-  const [selectedGenre, setSelectedGenre] = useState();
+  const [, setSelectedGenre] = useState();
+  const [searchParams, setSearchParams] = useSearchParams('');
+  const selectedGenre = searchParams.get('filter');
 
   const queryParams = {
     search: searchText,
@@ -55,7 +55,10 @@ const App = () => {
       ) : (
         <Header
           searchText={searchText}
-          onChangedSearchText={setSearchText}
+          // onChangedSearchText={(e: any) => {
+          //   console.log(e);
+          //   setSearchParams({ filter: e.target.value });
+          // }}
           openAddMovieWindow={() =>
             setModalWindowType(ModalWindowType.AddMovie)
           }
@@ -71,7 +74,10 @@ const App = () => {
             movies={(data as any)?.data}
             selectedGenre={selectedGenre}
             onChangeSort={setSortBy}
-            onChangeSelectedGenre={setSelectedGenre}
+            onChangeSelectedGenre={(e: any) => {
+              console.log(e);
+              setSearchParams({ filter: e });
+            }}
             openModalWindow={(type: ModalWindowType) =>
               setModalWindowType(type)
             }
