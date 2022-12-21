@@ -8,7 +8,7 @@ export interface MainContentProps {
   movies: MovieData[];
   selectedGenre?: string;
   switchViewMode: (isViewMode: boolean) => void;
-  onChangeSort?: React.Dispatch<React.SetStateAction<string>>;
+  onChangeSort?: any;
   onChangeSelectedGenre?: React.Dispatch<React.SetStateAction<string>>;
 }
 

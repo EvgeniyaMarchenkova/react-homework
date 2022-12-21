@@ -16,12 +16,12 @@ const App = () => {
   const selectedMovie = useAppSelector(selectSelectedMovie);
   const { searchText } = useParams();
 
-  const [sortBy, setSortBy] = useState('');
   const [modalWindowType, setModalWindowType] = useState(ModalWindowType.None);
   const [isViewMode, setIsViewMode] = useState(false);
   const [, setSelectedGenre] = useState();
   const [searchParams, setSearchParams] = useSearchParams('');
   const selectedGenre = searchParams.get('filter');
+  const sortBy = searchParams.get('sortBy');
 
   const queryParams = {
     search: searchText,
@@ -73,10 +73,12 @@ const App = () => {
           <MainContent
             movies={(data as any)?.data}
             selectedGenre={selectedGenre}
-            onChangeSort={setSortBy}
+            onChangeSort={(sortBy: any) =>
+              setSearchParams({ sortBy: sortBy, filter: selectedGenre })
+            }
             onChangeSelectedGenre={(e: any) => {
               console.log(e);
-              setSearchParams({ filter: e });
+              setSearchParams({ filter: e, sortBy: sortBy });
             }}
             openModalWindow={(type: ModalWindowType) =>
               setModalWindowType(type)
