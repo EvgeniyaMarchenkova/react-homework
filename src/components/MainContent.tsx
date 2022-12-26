@@ -1,12 +1,12 @@
 import React from 'react';
 import NavBar from './NavBar';
 import MoviesGrid from './MoviesGrid';
-import { Genre, ModalWindowType, MovieData, SortOrder } from './../model';
+import { Genre, ModalWindowType, MovieData } from './../model';
 
 export interface MainContentProps {
   openModalWindow: (type: ModalWindowType) => void;
   movies: MovieData[];
-  selectedSortBy?: SortOrder;
+  selectedSortBy?: string;
   selectedGenre?: Genre;
   showMovieDetails: (id: number) => void;
   onChangeSort?: React.Dispatch<React.SetStateAction<string>>;

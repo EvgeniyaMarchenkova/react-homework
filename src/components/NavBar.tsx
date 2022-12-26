@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Genre, SortOrder } from './../model';
+import { Genre } from './../model';
 import Sorting from './Sorting';
 
 type MenuItemProps = {
@@ -24,7 +24,7 @@ const MenuItem = styled.span<MenuItemProps>`
 `;
 
 interface NavBarProps {
-  selectedSortBy: SortOrder;
+  selectedSortBy: string;
   selectedGenre: Genre;
   onChangeSort: React.Dispatch<React.SetStateAction<string>>;
   onChangeSelectedGenre: React.Dispatch<React.SetStateAction<string>>;
