@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ModalWindowType } from './../model/modal-window';
 import AddUpdateMovie from './AddMovie';
 import DeleteMovie from './DeleteMovie';
 import {
@@ -10,7 +9,7 @@ import {
 } from '../query/movies';
 import { selectSelectedMovie } from '../store/moviesSlice';
 import { useAppSelector } from '../store/hooks';
-import { MovieData } from '../model';
+import { MovieData, ModalWindowType } from '../model';
 
 interface ModalWindowOpenerProps {
   type: ModalWindowType;
@@ -65,9 +64,19 @@ const ModalWindowOpener = (props: ModalWindowOpenerProps) => {
   const getModalWindow = () => {
     switch (props.type) {
       case ModalWindowType.AddMovie:
-        return <AddUpdateMovie onAddMovie={onAddMovie} />;
+        return (
+          <AddUpdateMovie
+            type={ModalWindowType.AddMovie}
+            onSubmit={onAddMovie}
+          />
+        );
       case ModalWindowType.EditMovie:
-        return <AddUpdateMovie onUpdateMovie={onUpdateMovie} />;
+        return (
+          <AddUpdateMovie
+            type={ModalWindowType.EditMovie}
+            onSubmit={onUpdateMovie}
+          />
+        );
       case ModalWindowType.DeleteMovie:
         return <DeleteMovie onDeleteMovie={onDeleteMovie} />;
     }

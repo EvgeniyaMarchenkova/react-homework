@@ -2,14 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
-import { MovieData } from '../model';
+import { ModalWindowType } from '../model';
 import { selectSelectedMovie } from '../store/moviesSlice';
 import { useAppSelector } from '../store/hooks';
 import { GENRES } from './NavBar';
 
 interface AddUpdateMovieProps {
-  onAddMovie?: (isDataUpdated: boolean, data: MovieData) => void;
-  onUpdateMovie?: (isDataUpdated: boolean, data: MovieData) => void;
+  type: ModalWindowType;
+  onSubmit: any;
 }
 
 const AddUpdateMovieWrapper = styled.div`
@@ -40,17 +40,9 @@ const AddUpdateMovie = (props: AddUpdateMovieProps) => {
     poster_path: Yup.string().required('Required'),
   });
 
-  const onUpdateMovie = (data: MovieData) => {
-    props.onUpdateMovie(true, data);
-  };
-
-  const onAddMovie = (data: MovieData) => {
-    props.onAddMovie(true, data);
-  };
-
   return (
     <AddUpdateMovieWrapper>
-      <h3>{props.onUpdateMovie ? 'UPDATE MOVIE' : 'ADD MOVIE'}</h3>
+      <h3>{`${props.type}`}</h3>
 
       <Formik
         initialValues={
@@ -75,13 +67,7 @@ const AddUpdateMovie = (props: AddUpdateMovieProps) => {
             }
         }
         validationSchema={SignupSchema}
-        onSubmit={(values) => {
-          if (props.onUpdateMovie) {
-            onUpdateMovie(values);
-          } else {
-            onAddMovie(values);
-          }
-        }}
+        onSubmit={props.onSubmit}
       >
         {({ values, errors, touched }) => (
           <Form>
@@ -167,9 +153,7 @@ const AddUpdateMovie = (props: AddUpdateMovieProps) => {
                 </label>
               ))}
             </div>
-            <button type="submit">
-              {props.onUpdateMovie ? 'UPDATE' : 'ADD'}
-            </button>
+            <button type="submit">{props.type}</button>
           </Form>
         )}
       </Formik>
