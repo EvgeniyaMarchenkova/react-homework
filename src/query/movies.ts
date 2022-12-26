@@ -16,6 +16,16 @@ export const moviesApi = createApi({
         };
       },
     }),
+    getMovieInfo: builder.query({
+      query: (id: string) => {
+        if (!id) {
+          return;
+        }
+        return {
+          url: `movies/${id}`,
+        };
+      },
+    }),
     addMovie: builder.mutation({
       query: (movie: MovieData) => ({
         url: '/movies',
@@ -41,6 +51,7 @@ export const moviesApi = createApi({
 
 export const {
   useGetMoviesQuery,
+  useGetMovieInfoQuery,
   useDeleteMovieMutation,
   useEditMovieMutation,
   useAddMovieMutation,

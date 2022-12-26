@@ -59,7 +59,11 @@ const HeaderContainer = styled.div`
   background-size: 0.375em 0.375em, 0.375em 0.375em, 100% 100%;
 `;
 
-const Header = (props: HeaderData) => {
+const Header = ({
+  searchText = '',
+  onChangedSearchText,
+  openAddMovieWindow,
+}: HeaderData) => {
   const dispatch = useAppDispatch();
 
   return (
@@ -67,22 +71,20 @@ const Header = (props: HeaderData) => {
       <AddMovieButton
         onClick={() => {
           dispatch(resetSelectedMovie());
-          props.openAddMovieWindow(undefined);
+          openAddMovieWindow(undefined);
         }}
       >
         + ADD MOVIE
       </AddMovieButton>
       <Input
-        value={props.searchText}
+        value={searchText}
         onChange={(ev: ChangeEvent<HTMLInputElement>) =>
-          props.onChangedSearchText(ev.target.value)
+          onChangedSearchText(ev.target.value)
         }
         type="text"
         placeholder="Select"
       />
-      <button onClick={() => props.onChangedSearchText('')}>
-        Reset Search
-      </button>
+      <button onClick={() => onChangedSearchText('')}>Reset Search</button>
     </HeaderContainer>
   );
 };

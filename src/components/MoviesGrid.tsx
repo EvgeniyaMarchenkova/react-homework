@@ -12,13 +12,13 @@ const Container = styled.div`
 
 const MoviesGrid = (props: MainContentProps) => {
   return (
-    <Container onClick={() => props.switchViewMode(true)}>
+    <Container>
       {props.movies.map((movie: MovieData) => {
         return (
           <MovieCard
             key={movie.title}
             movie={movie}
-            switchViewMode={props.switchViewMode}
+            switchViewMode={props.showMovieDetails}
             openModalWindow={props.openModalWindow}
           ></MovieCard>
         );

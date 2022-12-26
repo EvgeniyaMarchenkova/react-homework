@@ -26,10 +26,10 @@ const MovieDetails = (props: MovieDetailsProps) => {
   return (
     <MovieDetailsWrapper>
       <FlexWrapper>
-        {props.movie.title}
+        {props.movie?.title}
         <BsSearch onClick={props.onSearchClick} />
       </FlexWrapper>
-      <DescriptionWrapper>{props.movie.overview}</DescriptionWrapper>
+      <DescriptionWrapper>{props.movie?.overview}</DescriptionWrapper>
     </MovieDetailsWrapper>
   );
 };

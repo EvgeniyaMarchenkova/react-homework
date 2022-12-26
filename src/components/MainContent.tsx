@@ -6,16 +6,18 @@ import { Genre, ModalWindowType, MovieData } from './../model';
 export interface MainContentProps {
   openModalWindow: (type: ModalWindowType) => void;
   movies: MovieData[];
+  selectedSortBy?: string;
   selectedGenre?: Genre;
-  switchViewMode: (isViewMode: boolean) => void;
+  showMovieDetails: (id: number) => void;
   onChangeSort?: React.Dispatch<React.SetStateAction<string>>;
-  onChangeSelectedGenre?: React.Dispatch<React.SetStateAction<string>>;
+  onChangeSelectedGenre?: React.Dispatch<React.SetStateAction<Genre>>;
 }
 
 const MainContent = (props: MainContentProps) => {
   return (
     <div>
       <NavBar
+        selectedSortBy={props.selectedSortBy}
         selectedGenre={props.selectedGenre}
         onChangeSort={props.onChangeSort}
         onChangeSelectedGenre={props.onChangeSelectedGenre}
@@ -23,7 +25,7 @@ const MainContent = (props: MainContentProps) => {
       <MoviesGrid
         movies={props.movies || []}
         openModalWindow={props.openModalWindow}
-        switchViewMode={props.switchViewMode}
+        showMovieDetails={props.showMovieDetails}
       />
     </div>
   );

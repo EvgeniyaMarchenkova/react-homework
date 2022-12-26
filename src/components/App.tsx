@@ -3,31 +3,54 @@ import Header from './Header';
 import MainContent from './MainContent';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
-import { ModalWindowType, SearchBy } from './../model';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
+import { ModalWindowType, MovieData, SearchBy } from './../model';
 import ModalWindowOpener from './ModalWindowOpener';
 import MovieDetails from './MovieDetils';
-import { useGetMoviesQuery } from '../query/movies';
+import { useGetMoviesQuery, useGetMovieInfoQuery } from '../query/movies';
 import { useAppSelector } from '../store/hooks';
 import { selectSelectedMovie } from '../store/moviesSlice';
-import { SortOrder } from '../model/movies-query-params';
+import { Genre, SortOrder } from './../model';
 
 const App = () => {
   const selectedMovie = useAppSelector(selectSelectedMovie);
+  const { movieId } = useParams();
+  const navigate = useNavigate();
 
-  const [searchText, setSearchText] = useState('');
-  const [sortBy, setSortBy] = useState('');
   const [modalWindowType, setModalWindowType] = useState(ModalWindowType.None);
-  const [isViewMode, setIsViewMode] = useState(false);
-  const [selectedGenre, setSelectedGenre] = useState();
+
+  const [searchParams, setSearchParams] = useSearchParams('');
+  const search = searchParams.get('search');
+  const selectedGenre = searchParams.get('filter') as Genre;
+  const sortBy = searchParams.get('sortBy');
 
   const queryParams = {
-    search: searchText,
-    searchBy: SearchBy.Title,
-    sortOrder: SortOrder.Increase,
+    search: search,
     sortBy: sortBy,
     filter: selectedGenre,
   } as const;
-  const { data, error, isLoading, refetch } = useGetMoviesQuery(queryParams);
+
+  const getQueryObject = () => {
+    let result = {} as any;
+    for (let key in queryParams) {
+      if ((queryParams as any)[key]) {
+        result[key] = (queryParams as any)[key];
+      }
+    }
+    if (result.search) {
+      result.searchBy = SearchBy.Title;
+    }
+    if (result.sortBy) {
+      result.sortOrder = SortOrder.Increase;
+    }
+    return result;
+  };
+
+  const { data, error, isLoading, refetch } = useGetMoviesQuery(
+    getQueryObject(),
+  );
+
+  const movieInfo = useGetMovieInfoQuery(movieId).data as MovieData;
 
   const onCloseModalWindowHandler = (isDataUpdated: boolean) => {
     if (isDataUpdated) {
@@ -40,19 +63,26 @@ const App = () => {
     <>
       {modalWindowType !== ModalWindowType.None && (
         <ModalWindowOpener
+          movie={selectedMovie}
           type={modalWindowType}
           onCloseWindow={onCloseModalWindowHandler}
         />
       )}
-      {isViewMode ? (
+      {movieId ? (
         <MovieDetails
-          movie={selectedMovie}
-          onSearchClick={() => setIsViewMode(false)}
+          movie={movieInfo}
+          onSearchClick={() =>
+            navigate({
+              pathname: '/search',
+            })
+          }
         />
       ) : (
         <Header
-          searchText={searchText}
-          onChangedSearchText={setSearchText}
+          searchText={search}
+          onChangedSearchText={(e: string) => {
+            setSearchParams({ ...getQueryObject(), search: e });
+          }}
           openAddMovieWindow={() =>
             setModalWindowType(ModalWindowType.AddMovie)
           }
@@ -66,13 +96,22 @@ const App = () => {
         ) : data ? (
           <MainContent
             movies={(data as any)?.data}
+            selectedSortBy={sortBy}
             selectedGenre={selectedGenre}
-            onChangeSort={setSortBy}
-            onChangeSelectedGenre={setSelectedGenre}
+            onChangeSort={(sort: string) =>
+              setSearchParams({ ...getQueryObject(), sortBy: sort })
+            }
+            onChangeSelectedGenre={(genre: Genre) => {
+              setSearchParams({ ...getQueryObject(), filter: genre });
+            }}
             openModalWindow={(type: ModalWindowType) =>
               setModalWindowType(type)
             }
-            switchViewMode={setIsViewMode}
+            showMovieDetails={(id) => {
+              navigate({
+                pathname: `/search/${id}`,
+              });
+            }}
           />
         ) : null}
       </ErrorBoundary>

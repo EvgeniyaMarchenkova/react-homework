@@ -8,11 +8,10 @@ import {
   useEditMovieMutation,
   useAddMovieMutation,
 } from '../query/movies';
-import { selectSelectedMovie } from '../store/moviesSlice';
-import { useAppSelector } from '../store/hooks';
 import { MovieData } from '../model';
 
 interface ModalWindowOpenerProps {
+  movie: MovieData;
   type: ModalWindowType;
   onCloseWindow: (isDataUpdated: boolean) => void;
 }
@@ -38,7 +37,6 @@ export const ModalContent = styled.div`
 `;
 
 const ModalWindowOpener = (props: ModalWindowOpenerProps) => {
-  const selectedMovie = useAppSelector(selectSelectedMovie);
   const [deleteMovie]: any = useDeleteMovieMutation();
   const [editMovie]: any = useEditMovieMutation();
   const [addMovie]: any = useAddMovieMutation();
@@ -49,12 +47,12 @@ const ModalWindowOpener = (props: ModalWindowOpenerProps) => {
   };
 
   const onUpdateMovie = (isDataUpdated: boolean, data: MovieData) => {
-    editMovie({ ...selectedMovie, ...data });
+    editMovie({ ...props.movie, ...data });
     props.onCloseWindow(isDataUpdated);
   };
 
   const onDeleteMovie = (isDataUpdated: boolean) => {
-    deleteMovie(selectedMovie.id);
+    deleteMovie(props.movie.id);
     props.onCloseWindow(isDataUpdated);
   };
 
