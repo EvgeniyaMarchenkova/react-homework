@@ -7,7 +7,7 @@ import { setSelectedMovie } from '../store/moviesSlice';
 
 export interface MovieCardProps {
   openModalWindow: (type: ModalWindowType) => void;
-  switchViewMode: (isViewMode: boolean) => void;
+  switchViewMode: (isViewMode: number) => void;
   movie: MovieData;
 }
 
@@ -27,14 +27,13 @@ const MovieCard = (props: MovieCardProps) => {
     <MovieWrapper
       onClick={() => {
         selectMovie();
-        props.switchViewMode(true);
+        props.switchViewMode(props.movie.id);
       }}
     >
       {props.movie.title}{' '}
       <HamburgerMenu
         openModalWindow={props.openModalWindow}
         selectMovie={() => {
-          props.switchViewMode(false);
           selectMovie();
         }}
       />

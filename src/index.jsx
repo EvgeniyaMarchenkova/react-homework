@@ -5,7 +5,7 @@ import App from './components/App';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
-import Footer from './components/Footer';
+import PageNotFound from './components/NotFoundPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -15,10 +15,11 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path="/search" element={<App />}>
-            <Route path="/search/:searchText" element={<App />}></Route>
+            <Route path="/search/:movieId" element={<App />}></Route>
           </Route>
 
           <Route path="/" element={<Navigate to="/search" replace />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </Provider>

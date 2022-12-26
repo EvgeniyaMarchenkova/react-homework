@@ -2,8 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface SortingProps {
+  selectedSortBy: string;
   onChangeSort: React.Dispatch<React.SetStateAction<string>>;
 }
+
+type SortItemProps = {
+  selected: boolean;
+};
+
+const SortItem = styled.span<SortItemProps>`
+  color: ${(props) => (props.selected ? 'black' : 'grey')};
+`;
 
 export const SORT_LIST = [
   {
@@ -31,9 +40,13 @@ const Sorting = (props: SortingProps) => {
     <Wrapper>
       <span>Sort by: </span>
       {SORT_LIST.map((item) => (
-        <span key={item.value} onClick={() => props.onChangeSort(item.value)}>
+        <SortItem
+          selected={item.value === props.selectedSortBy}
+          key={item.value}
+          onClick={() => props.onChangeSort(item.value)}
+        >
           {item.label}
-        </span>
+        </SortItem>
       ))}
     </Wrapper>
   );

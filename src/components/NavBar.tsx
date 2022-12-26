@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Genre } from './../model';
+import { Genre, SortOrder } from './../model';
 import Sorting from './Sorting';
 
-interface MenuItemProps {
+type MenuItemProps = {
   selected: boolean;
-}
+};
 
 const Wrapper = styled.div`
   display: flex;
@@ -15,6 +15,7 @@ const Wrapper = styled.div`
 
 const MenuItem = styled.span<MenuItemProps>`
   position: sticky;
+  color: ${(props) => (props.selected ? 'black' : 'grey')};
   top: 0;
   padding: 10px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.15);
@@ -23,7 +24,8 @@ const MenuItem = styled.span<MenuItemProps>`
 `;
 
 interface NavBarProps {
-  selectedGenre: string;
+  selectedSortBy: SortOrder;
+  selectedGenre: Genre;
   onChangeSort: React.Dispatch<React.SetStateAction<string>>;
   onChangeSelectedGenre: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -45,7 +47,7 @@ const NavBar = (props: NavBarProps) => {
     <Wrapper>
       <Wrapper>
         <MenuItem
-          selected={null === props.selectedGenre}
+          selected={!props.selectedGenre}
           onClick={() => props.onChangeSelectedGenre('')}
         >
           ALL
@@ -60,7 +62,10 @@ const NavBar = (props: NavBarProps) => {
           </MenuItem>
         ))}
       </Wrapper>
-      <Sorting onChangeSort={props.onChangeSort} />
+      <Sorting
+        selectedSortBy={props.selectedSortBy}
+        onChangeSort={props.onChangeSort}
+      />
     </Wrapper>
   );
 };
