@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { ModalWindowType } from './../model/modal-window';
 import AddUpdateMovie from './AddMovie';
 import DeleteMovie from './DeleteMovie';
 import {
@@ -10,15 +9,11 @@ import {
 } from '../query/movies';
 import { selectSelectedMovie } from '../store/moviesSlice';
 import { useAppSelector } from '../store/hooks';
+import { MovieData, ModalWindowType } from '../model';
 
 interface ModalWindowOpenerProps {
   type: ModalWindowType;
-  onCloseWindow: any;
-  movieHandlers: {
-    delete: Function;
-    edit: Function;
-    add: Function;
-  };
+  onCloseWindow: (isDataUpdated: boolean) => void;
 }
 
 export const ModalWrapper = styled.div`
@@ -35,33 +30,30 @@ export const ModalWrapper = styled.div`
 
 export const ModalContent = styled.div`
   background: gray;
-  height: 180px;
-  width: 200px;
+  height: 330px;
+  width: 400px;
   top: 200px;
   position: relative;
 `;
 
 const ModalWindowOpener = (props: ModalWindowOpenerProps) => {
-  const selectedMovieId = useAppSelector(selectSelectedMovie).id;
-  const [deleteTask]: any = useDeleteMovieMutation();
-  const [editTask]: any = useEditMovieMutation();
+  const selectedMovie = useAppSelector(selectSelectedMovie);
+  const [deleteMovie]: any = useDeleteMovieMutation();
+  const [editMovie]: any = useEditMovieMutation();
   const [addMovie]: any = useAddMovieMutation();
 
-  const onAddMovie = (isDataUpdated: boolean) => {
-    console.log('ModalWindowOpener', isDataUpdated);
-    addMovie();
+  const onAddMovie = (isDataUpdated: boolean, data: MovieData) => {
+    addMovie(data);
     props.onCloseWindow(isDataUpdated);
   };
 
-  const onUpdateMovie = (isDataUpdated: boolean) => {
-    console.log('ModalWindowOpener', isDataUpdated);
-    editTask(selectedMovieId);
+  const onUpdateMovie = (isDataUpdated: boolean, data: MovieData) => {
+    editMovie({ ...selectedMovie, ...data });
     props.onCloseWindow(isDataUpdated);
   };
 
   const onDeleteMovie = (isDataUpdated: boolean) => {
-    console.log('ModalWindowOpener', isDataUpdated);
-    deleteTask(selectedMovieId);
+    deleteMovie(selectedMovie.id);
     props.onCloseWindow(isDataUpdated);
   };
 
@@ -72,9 +64,19 @@ const ModalWindowOpener = (props: ModalWindowOpenerProps) => {
   const getModalWindow = () => {
     switch (props.type) {
       case ModalWindowType.AddMovie:
-        return <AddUpdateMovie onAddMovie={onAddMovie} />;
+        return (
+          <AddUpdateMovie
+            type={ModalWindowType.AddMovie}
+            onSubmit={onAddMovie}
+          />
+        );
       case ModalWindowType.EditMovie:
-        return <AddUpdateMovie onUpdateMovie={onUpdateMovie} />;
+        return (
+          <AddUpdateMovie
+            type={ModalWindowType.EditMovie}
+            onSubmit={onUpdateMovie}
+          />
+        );
       case ModalWindowType.DeleteMovie:
         return <DeleteMovie onDeleteMovie={onDeleteMovie} />;
     }

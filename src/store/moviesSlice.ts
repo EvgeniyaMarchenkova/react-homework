@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './store';
-import { Genre, MovieData } from '../model';
+import { MovieData } from '../model';
 
 interface MoviesState {
   selectedMovie: MovieData;
@@ -21,10 +21,13 @@ export const moviesSlice = createSlice({
     ) => {
       state.selectedMovie = action.payload;
     },
+    resetSelectedMovie: (state: MoviesState) => {
+      state.selectedMovie = null;
+    },
   },
 });
 
-export const { setSelectedMovie } = moviesSlice.actions;
+export const { setSelectedMovie, resetSelectedMovie } = moviesSlice.actions;
 
 export const selectSelectedMovie = (state: RootState) =>
   state.movies.selectedMovie;
