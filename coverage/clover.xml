@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1672229765978" clover="3.2.0">
+  <project timestamp="1672229765978" name="All files">
+    <metrics statements="7" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1" elements="10" coveredelements="6" complexity="0" loc="7" ncloc="7" packages="1" files="1" classes="1"/>
+    <file name="moviesSlice.ts" path="C:\Users\Evgeniya_Marchenkova\Desktop\react-homework\movies\src\store\moviesSlice.ts">
+      <metrics statements="7" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
+      <line num="10" count="1" type="stmt"/>
+      <line num="14" count="1" type="stmt"/>
+      <line num="22" count="1" type="stmt"/>
+      <line num="25" count="0" type="stmt"/>
+      <line num="30" count="1" type="stmt"/>
+      <line num="32" count="1" type="stmt"/>
+      <line num="33" count="0" type="stmt"/>
+    </file>
+  </project>
+</coverage>

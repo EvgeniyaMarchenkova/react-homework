@@ -8,5 +8,6 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "Node"
-  }
+  },
+  "exclude": ["node_modules", "cypress", "src/tests"]
 }

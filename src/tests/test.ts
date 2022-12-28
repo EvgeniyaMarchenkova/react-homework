@@ -8,7 +8,7 @@ test('should handle a todo being added to an empty list', () => {
     poster_path: 'string',
     runtime: 22,
   };
-  const previousState = { selectedMovie: null };
+  const previousState: any = { selectedMovie: null };
   expect(reducer(previousState, setSelectedMovie(movieData))).toEqual({
     selectedMovie: movieData,
   });
