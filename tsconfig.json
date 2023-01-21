@@ -9,5 +9,5 @@
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "Node"
   },
-  "exclude": ["node_modules", "cypress", "src/tests"]
+  "include": ["src"]
 }

@@ -3,15 +3,15 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for moviesSlice.ts</title>
+    <title>Code coverage report for components/MainContent.tsx</title>
     <meta charset="utf-8" />
-    <link rel="stylesheet" href="prettify.css" />
-    <link rel="stylesheet" href="base.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.png" />
+    <link rel="stylesheet" href="../prettify.css" />
+    <link rel="stylesheet" href="../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
-            background-image: url(sort-arrow-sprite.png);
+            background-image: url(../sort-arrow-sprite.png);
         }
     </style>
 </head>
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="index.html">All files</a> moviesSlice.ts</h1>
+        <h1><a href="../index.html">All files</a> / <a href="index.html">components</a> MainContent.tsx</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.42% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/7</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>0/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">33.33% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/3</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">71.42% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/7</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
@@ -97,8 +97,7 @@
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
 <a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L35'></a><a href='#L35'>35</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -106,12 +105,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -120,54 +113,58 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from './store';
-import { MovieData } from '../model';
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import NavBar from './NavBar';
+import MoviesGrid from './MoviesGrid';
+import { Genre, ModalWindowType, MovieData } from './../model';
 &nbsp;
-interface MoviesState {
-  selectedMovie: MovieData;
+export interface MainContentProps {
+  openModalWindow: (type: ModalWindowType) =&gt; void;
+  movies: MovieData[];
+  selectedSortBy?: string;
+  selectedGenre?: Genre;
+  showMovieDetails: (id: number) =&gt; void;
+  onChangeSort?: React.Dispatch&lt;React.SetStateAction&lt;string&gt;&gt;;
+  onChangeSelectedGenre?: React.Dispatch&lt;React.SetStateAction&lt;Genre&gt;&gt;;
 }
 &nbsp;
-const initialState: MoviesState = {
-  selectedMovie: null,
+const MainContent = <span class="fstat-no" title="function not covered" >(p</span>rops: MainContentProps) =&gt; {
+<span class="cstat-no" title="statement not covered" >  return (</span>
+    &lt;div&gt;
+      &lt;NavBar
+        selectedSortBy={props.selectedSortBy}
+        selectedGenre={props.selectedGenre}
+        onChangeSort={props.onChangeSort}
+        onChangeSelectedGenre={props.onChangeSelectedGenre}
+      /&gt;
+      &lt;MoviesGrid
+        movies={props.movies || []}
+        openModalWindow={props.openModalWindow}
+        showMovieDetails={props.showMovieDetails}
+      /&gt;
+    &lt;/div&gt;
+  );
 };
 &nbsp;
-export const moviesSlice = createSlice({
-  name: 'movies',
-  initialState,
-  reducers: {
-    setSelectedMovie: (
-      state: MoviesState,
-      action: PayloadAction&lt;MovieData&gt;,
-    ) =&gt; {
-      state.selectedMovie = action.payload;
-    },
-    resetSelectedMovie: <span class="fstat-no" title="function not covered" >(s</span>tate: MoviesState) =&gt; {
-<span class="cstat-no" title="statement not covered" >      state.selectedMovie = null;</span>
-    },
-  },
-});
-&nbsp;
-export const { setSelectedMovie, resetSelectedMovie } = moviesSlice.actions;
-&nbsp;
-export const selectSelectedMovie = <span class="fstat-no" title="function not covered" >(s</span>tate: RootState) =&gt;
-<span class="cstat-no" title="statement not covered" >  state.movies.selectedMovie;</span>
-&nbsp;
-export default moviesSlice.reducer;
+export default MainContent;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -175,16 +172,16 @@ export default moviesSlice.reducer;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-01-14T13:00:13.055Z
+                at 2023-01-14T13:46:45.256Z
             </div>
-        <script src="prettify.js"></script>
+        <script src="../prettify.js"></script>
         <script>
             window.onload = function () {
                 prettyPrint();
             };
         </script>
-        <script src="sorter.js"></script>
-        <script src="block-navigation.js"></script>
+        <script src="../sorter.js"></script>
+        <script src="../block-navigation.js"></script>
     </body>
 </html>
     

@@ -1,0 +1,76 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search should render correctly 1`] = `
+<div
+  className="sc-dkrFOg vuVxh"
+>
+  <button
+    className="sc-gswNZR bkHYVn"
+    onClick={[Function]}
+  >
+    + ADD MOVIE
+  </button>
+  <input
+    className="sc-bcXHqe gAHLJq"
+    onChange={[Function]}
+    placeholder="Select"
+    type="text"
+    value=""
+  />
+  <button
+    onClick={[Function]}
+  >
+    Reset Search
+  </button>
+</div>
+`;
+
+exports[`renders correctly 1`] = `
+<div
+  className="sc-dkrFOg vuVxh"
+>
+  <button
+    className="sc-gswNZR bkHYVn"
+    onClick={[Function]}
+  >
+    + ADD MOVIE
+  </button>
+  <input
+    className="sc-bcXHqe gAHLJq"
+    onChange={[Function]}
+    placeholder="Select"
+    type="text"
+    value=""
+  />
+  <button
+    onClick={[Function]}
+  >
+    Reset Search
+  </button>
+</div>
+`;
+
+exports[`renders correctly 2`] = `
+<div
+  className="sc-dkrFOg vuVxh"
+>
+  <button
+    className="sc-gswNZR bkHYVn"
+    onClick={[Function]}
+  >
+    + ADD MOVIE
+  </button>
+  <input
+    className="sc-bcXHqe gAHLJq"
+    onChange={[Function]}
+    placeholder="Select"
+    type="text"
+    value=""
+  />
+  <button
+    onClick={[Function]}
+  >
+    Reset Search
+  </button>
+</div>
+`;
