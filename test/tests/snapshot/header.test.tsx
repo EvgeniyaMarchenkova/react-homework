@@ -26,10 +26,10 @@ describe("Search should", () => {
     expect(header).toMatchSnapshot();
   });
 
-  it("contain input for search", async () => {
+  it("input should correctly handle user's input ", async () => {
     const fakeHandlerChangeInput = jest.fn();
     const fakeHandlerAddMovieClick = jest.fn();
-    render(
+    const { getByRole } = render(
       <Provider store={store}>
         <Header
           onChangedSearchText={fakeHandlerChangeInput}
@@ -39,41 +39,29 @@ describe("Search should", () => {
         </Header>
       </Provider>
     );
-    const input = await screen.getByRole("textbox");
-    const input2 = await screen.getByPlaceholderText("Select");
+    const input = await getByRole("textbox");
     expect(input).toBeInTheDocument();
-    // await fireEvent.change(input2, { target: { value: "dragon" } });
-    // expect((input2 as HTMLInputElement).value).toEqual("dragon");
-
-    // await userEvent.type(input, "dragon");
-    // screen.debug();
-    // expect(screen.getByRole("textbox") as HTMLInputElement).toHaveValue(
-    //   "dragon"
-    // );
+    fireEvent.input(input, { target: { value: "test" } });
+    expect(fakeHandlerChangeInput).toHaveBeenCalledWith("test");
   });
 });
 
-it("should invoke corresponding handler when user input value changes", async () => {
+it("openAddMovieWindow is called when the add movie button is clicked", async () => {
   const fakeHandlerChangeInput = jest.fn();
   const fakeHandlerAddMovieClick = jest.fn();
-  render(
+  const { getByText } = render(
     <Provider store={store}>
-      (
       <Header
         onChangedSearchText={fakeHandlerChangeInput}
         openAddMovieWindow={fakeHandlerAddMovieClick}
       >
-        ) as any Facebook
+        Facebook
       </Header>
     </Provider>
   );
-  const input = await screen.getByRole("textbox");
-  await fireEvent.change(input, { target: { value: "dragon" } });
-  expect(fakeHandlerChangeInput).toHaveBeenCalledTimes(1);
 
-  // await userEvent.type(input, "dragon");
-  // screen.debug();
-  // expect(screen.getByRole("textbox") as HTMLInputElement).toHaveValue(
-  //   "dragon"
-  // );
+  const addMovieButton = getByText("+ ADD MOVIE");
+  fireEvent.click(addMovieButton);
+
+  expect(fakeHandlerAddMovieClick).toHaveBeenCalledTimes(1);
 });
