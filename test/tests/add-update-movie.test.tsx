@@ -1,8 +1,8 @@
 import React from "react";
 import { render, fireEvent, waitFor } from "@testing-library/react";
-import AddUpdateMovie from "../../../src/components/AddMovie";
+import AddUpdateMovie from "../../src/components/AddMovie";
 import { Provider } from "react-redux";
-import { store } from "../../../src/store/store";
+import { store } from "../../src/store/store";
 
 const mockSelectedMovie = {
   title: "Test",
@@ -14,11 +14,11 @@ const mockSelectedMovie = {
   runtime: "120",
 };
 
-jest.mock("../../../src/store/hooks", () => ({
+jest.mock("../../src/store/hooks", () => ({
   useAppSelector: () => mockSelectedMovie,
 }));
 
-fdescribe("Search should", () => {
+describe("Search should", () => {
   it("should display the correct title when updating a movie", () => {
     const fakeOnUpdateMovie = jest.fn();
 

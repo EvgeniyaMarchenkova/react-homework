@@ -50,7 +50,7 @@ const HamburgerMenu = (props: HamburgerMenuProps) => {
         setIsMenuOpened(!isMenuOpened);
       }}
     >
-      <HamburgerMenuItem />
+      <HamburgerMenuItem data-testid="hamburger-menu" />
       <HamburgerMenuItem />
       <HamburgerMenuItem />
       {isMenuOpened && (
