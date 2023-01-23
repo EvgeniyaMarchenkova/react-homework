@@ -25,6 +25,7 @@ const MovieCard = (props: MovieCardProps) => {
   const selectMovie = () => dispatch(setSelectedMovie(props.movie));
   return (
     <MovieWrapper
+      data-testid="movie-wrapper"
       onClick={() => {
         selectMovie();
         props.switchViewMode(props.movie.id);

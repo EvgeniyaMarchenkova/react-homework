@@ -86,68 +86,68 @@ const AddUpdateMovie = (props: AddUpdateMovieProps) => {
         {({ values, errors, touched }) => (
           <Form>
             <ItemWrapper>
-              <span>Title</span>
+              <label htmlFor="title">Title</label>
               <div>
                 {errors.title && touched.title ? (
                   <ErrorMessageWrapper>{errors.title}</ErrorMessageWrapper>
                 ) : null}
-                <Field name="title" />
+                <Field id="title" name="title" />
               </div>
             </ItemWrapper>
 
             <ItemWrapper>
-              <span>Release Date</span>
+              <label htmlFor="release-date">Release Date</label>
               <div>
                 {errors.release_date && touched.release_date ? (
                   <ErrorMessageWrapper>
                     {errors.release_date}
                   </ErrorMessageWrapper>
                 ) : null}
-                <Field name="release_date" />
+                <Field id="release-date" name="release_date" />
               </div>
             </ItemWrapper>
 
             <ItemWrapper>
-              <span>Rating</span>
+              <label htmlFor="rating">Rating</label>
               <div>
                 {errors.vote_average && touched.vote_average ? (
                   <ErrorMessageWrapper>
                     {errors.vote_average}
                   </ErrorMessageWrapper>
                 ) : null}
-                <Field name="vote_average" />
+                <Field id="rating" name="vote_average" />
               </div>
             </ItemWrapper>
 
             <ItemWrapper>
-              <span>Movie URL</span>
+              <label htmlFor="url">Movie URL</label>
               <div>
                 {errors.poster_path && touched.poster_path ? (
                   <ErrorMessageWrapper>
                     {errors.poster_path}
                   </ErrorMessageWrapper>
                 ) : null}
-                <Field name="poster_path" />
+                <Field id="url" name="poster_path" />
               </div>
             </ItemWrapper>
 
             <ItemWrapper>
-              <span>Overview</span>
+              <label htmlFor="overview">Overview</label>
               <div>
                 {errors.overview && touched.overview ? (
                   <ErrorMessageWrapper>{errors.overview}</ErrorMessageWrapper>
                 ) : null}
-                <Field name="overview" />
+                <Field id="overview" name="overview" />
               </div>
             </ItemWrapper>
 
             <ItemWrapper>
-              <span>Runtime</span>
+              <label htmlFor="runtime">Runtime</label>
               <div>
                 {errors.runtime && touched.runtime ? (
                   <ErrorMessageWrapper>{errors.runtime}</ErrorMessageWrapper>
                 ) : null}
-                <Field name="runtime" />
+                <Field id="runtime" name="runtime" />
               </div>
             </ItemWrapper>
 

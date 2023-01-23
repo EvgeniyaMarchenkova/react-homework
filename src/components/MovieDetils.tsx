@@ -27,7 +27,7 @@ const MovieDetails = (props: MovieDetailsProps) => {
     <MovieDetailsWrapper>
       <FlexWrapper>
         {props.movie?.title}
-        <BsSearch onClick={props.onSearchClick} />
+        <BsSearch data-testid="search-icon" onClick={props.onSearchClick} />
       </FlexWrapper>
       <DescriptionWrapper>{props.movie?.overview}</DescriptionWrapper>
     </MovieDetailsWrapper>

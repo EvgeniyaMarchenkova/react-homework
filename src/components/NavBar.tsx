@@ -54,6 +54,7 @@ const NavBar = (props: NavBarProps) => {
         </MenuItem>
         {GENRES.map((genre) => (
           <MenuItem
+            data-testid="genre-item"
             key={genre}
             selected={genre === props.selectedGenre}
             onClick={() => props.onChangeSelectedGenre(genre)}
